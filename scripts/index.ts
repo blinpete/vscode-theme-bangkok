@@ -7,44 +7,44 @@ console.log('starting')
 fs.mkdir('./themes', { recursive: true })
   .then(() => Promise.all([
     fs.writeJSON(
-      './themes/vitesse-light.json',
+      './themes/light.json',
       getTheme({
         color: 'light',
-        name: 'Vitesse Light',
+        name: 'Bangkok Light',
       }),
       { spaces: 2 },
     ),
     fs.writeJSON(
-      './themes/vitesse-dark.json',
+      './themes/dark.json',
       getTheme({
         color: 'dark',
-        name: 'Vitesse Dark',
+        name: 'Bangkok Dark',
       }),
       { spaces: 2 },
     ),
     fs.writeJSON(
-      './themes/vitesse-black.json',
+      './themes/black.json',
       getTheme({
         color: 'dark',
-        name: 'Vitesse Black',
+        name: 'Bangkok Black',
         black: true,
       }),
       { spaces: 2 },
     ),
     fs.writeJSON(
-      './themes/vitesse-light-soft.json',
+      './themes/light-soft.json',
       getTheme({
         color: 'light',
-        name: 'Vitesse Light Soft',
+        name: 'Bangkok Light Soft',
         soft: true,
       }),
       { spaces: 2 },
     ),
     fs.writeJSON(
-      './themes/vitesse-dark-soft.json',
+      './themes/dark-soft.json',
       getTheme({
         color: 'dark',
-        name: 'Vitesse Dark Soft',
+        name: 'Bangkok Dark Soft',
         soft: true,
       }),
       { spaces: 2 },
@@ -54,26 +54,26 @@ fs.mkdir('./themes', { recursive: true })
 fs.mkdir('./extra', { recursive: true })
   .then(() => Promise.all([
     fs.writeJSON(
-      './extra/xterm-vitesse-light.json',
+      './extra/xterm-light.json',
       getXtermTheme({
         color: 'light',
-        name: 'Vitesse Light',
+        name: 'Bangkok Light',
       }),
       { spaces: 2 },
     ),
     fs.writeJSON(
-      './extra/xterm-vitesse-dark.json',
+      './extra/xterm-dark.json',
       getXtermTheme({
         color: 'dark',
-        name: 'Vitesse Dark',
+        name: 'Bangkok Dark',
       }),
       { spaces: 2 },
     ),
     fs.writeJSON(
-      './extra/xterm-vitesse-black.json',
+      './extra/xterm-black.json',
       getXtermTheme({
         color: 'dark',
-        name: 'Vitesse Black',
+        name: 'Bangkok Black',
         black: true,
       }),
       { spaces: 2 },
