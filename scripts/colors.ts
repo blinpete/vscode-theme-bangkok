@@ -1,3 +1,5 @@
+import Color from 'color'
+
 export const colors = {
   black: '#111',
   white: '#fff',
@@ -11,60 +13,99 @@ export const colors = {
   pink: ['#ffeef8', '#fedbf0', '#f9b3dd', '#f692ce', '#ec6cb9', '#ea4aaa', '#d03592', '#b93a86', '#99306f', '#6d224f'],
 }
 
+type RawColor = [number, number, number] | [number, number, number, number] | number[]
+
 // [dark, light]
 export const ColorTokens = {
-  primary: ['#4d9375', '#1c6b48'],
+  primary: [[55.81, 30.86, 162.77], [39.96, 35.07, 158.32]],
 
-  foreground: ['#dbd7caee', '#393a34'],
-  activeForeground: ['#bfbaaa', '#4e4f47'],
-  secondaryForeground: ['#dedcd590', '#393a3490'],
+  foreground: [[85.97, 6.95, 97.29, 0.93], [24.14, 3.99, 116.07]],
+  activeForeground: [[75.51, 8.8, 96.74], [33.28, 5.04, 114.37]],
+  secondaryForeground: [[87.74, 3.71, 98.57, 0.56], [24.14, 3.99, 116.07, 0.56]],
 
-  ignored: ['#dedcd550', '#393a3450'],
-  faded: ['#dedcd510', '#393a3410'],
-  border: ['#191919', '#f0f0f0'],
+  ignored: [[87.74, 3.71, 98.57, 0.31], [24.14, 3.99, 116.07, 0.31]],
+  faded: [[87.74, 3.71, 98.57, 0.06], [24.14, 3.99, 116.07, 0.06]],
+  border: [[8.76, 0, 158.2], [94.8, 0, 158.2]],
 
-  background: ['#121212', '#ffffff'],
-  activeBackground: ['#181818', '#f7f7f7'],
-  selectionBackground: ['#eeeeee18', '#22222218'],
-  selectionBackgroundActive: ['#eeeeee18', '#22222218'],
-  selectionBackgroundInActive: ['#eeeeee10', '#22222210'],
+  background: [[5.46, 0, 158.2], [100, 0, 158.2]],
+  activeBackground: [[8.25, 0, 158.2], [97.23, 0, 158.2]],
+  selectionBackground: [[94.1, 0, 158.2, 0.09], [13.23, 0, 158.2, 0.09]],
+  selectionBackgroundActive: [[94.1, 0, 158.2, 0.09], [13.23, 0, 158.2, 0.09]],
+  selectionBackgroundInActive: [[94.1, 0, 158.2, 0.06], [13.23, 0, 158.2, 0.06]],
 
   // soft overrides
-  softBackground: ['#222', '#F1F0E9'],
-  softActiveBackground: ['#292929', '#E7E5DB'],
-  softBorder: ['#252525', '#E7E5DB'],
+  softBackground: [[13.23, 0, 158.2], [94.7, 3.6, 104.21]],
+  softActiveBackground: [[16.59, 0, 158.2], [90.84, 5.22, 101.76]],
+  softBorder: [[14.68, 0, 158.2], [90.84, 5.22, 101.76]],
 
   // black overrides
-  blackForeground: '#dbd7cacc',
-  blackBackground: '#000',
-  blackActiveBackground: '#121212',
-  blackPunctuation: '#444444',
+  blackForeground: [85.97, 6.95, 97.29, 0.8],
+  blackBackground: [0, 0, 0],
+  blackActiveBackground: [5.46, 0, 158.2],
+  blackPunctuation: [28.85, 0, 158.2],
 
-  comment: ['#758575dd', '#a0ada0'],
-  string: ['#c98a7d', '#b56959'],
-  variable: ['#bd976a', '#b07d48'],
-  keyword: ['#4d9375', '#1e754f'],
-  number: ['#4C9A91', '#2f798a'],
-  boolean: ['#4d9375', '#1e754f'],
-  operator: ['#cb7676', '#ab5959'],
-  function: ['#80a665', '#59873a'],
-  constant: ['#c99076', '#a65e2b'],
-  class: ['#6872ab', '#5a6aa6'],
-  interface: ['#5d99a9', '#2e808f'],
-  type: ['#5DA994', '#2e8f82'],
-  builtin: ['#cb7676', '#ab5959'],
-  property: ['#b8a965', '#998418'],
-  namespace: ['#db889a', '#b05a78'],
-  punctuation: ['#666666', '#999999'],
-  decorator: ['#bd8f8f', '#bd8f8f'],
-  regex: ['#c4704f', '#ab5e3f'],
+  comment: [[53.86, 11.28, 143.75, 0.87], [69.4, 8.71, 144.01]],
+  string: [[63.41, 27.94, 36.68], [52.56, 36.22, 37.67]],
+  variable: [[64.96, 30.22, 74.17], [56.45, 38.98, 69]],
+  keyword: [[55.81, 30.86, 162.77], [43.6, 37.63, 158.46]],
+  number: [[58.69, 26.43, 185.77], [47.12, 23.48, 223.02]],
+  boolean: [[55.81, 30.86, 162.77], [43.6, 37.63, 158.46]],
+  operator: [[58.94, 36.26, 23.61], [47.66, 36.74, 24.6]],
+  function: [[64, 38.67, 130.18], [51.56, 46.86, 129.85]],
+  constant: [[64.7, 28.91, 50.7], [47.35, 47.9, 58.33]],
+  class: [[49.4, 33.45, 288.94], [45.95, 35.75, 287.04]],
+  interface: [[59.86, 20.93, 223.69], [49.5, 24.82, 218.2]],
+  type: [[64.03, 28.95, 173], [53.85, 31.05, 182.36]],
+  builtin: [[58.94, 36.26, 23.61], [47.66, 36.74, 24.6]],
+  property: [[69.12, 37.17, 96.34], [55.42, 55.46, 93.05]],
+  namespace: [[65.75, 34.2, 6.6], [49.38, 38.37, 358.81]],
+  punctuation: [[43.19, 0, 158.2], [63.22, 0, 158.2]],
+  decorator: [[63.71, 18.67, 21.27], [63.71, 18.67, 21.27]],
+  regex: [[55.98, 44.35, 47.3], [48.29, 42.32, 47.74]],
 
   // colors
-  green: ['#4d9375', '#1e754f'],
-  cyan: ['#5eaab5', '#2993a3'],
-  blue: ['#6394bf', '#296aa3'],
-  red: ['#cb7676', '#ab5959'],
-  orange: ['#d4976c', '#a65e2b'],
-  yellow: ['#e6cc77', '#bda437'],
-  magenta: ['#d9739f', '#a13865'],
-} satisfies Record<string, [string, string] | string>
+  green: [[55.81, 30.86, 162.77], [43.6, 37.63, 158.46]],
+  cyan: [[65.33, 24.29, 212.24], [56.07, 29.18, 215.53]],
+  blue: [[59.52, 27.78, 260.53], [43.39, 36.62, 269.15]],
+  red: [[58.94, 36.26, 23.61], [47.66, 36.74, 24.6]],
+  orange: [[67.44, 36.4, 60.51], [47.35, 47.9, 58.33]],
+  yellow: [[82.56, 45.48, 92.3], [67.76, 57.23, 92.82]],
+  magenta: [[61.24, 45.23, 352.95], [40.16, 47.6, 356.42]],
+} satisfies Record<string, [RawColor, RawColor] | RawColor>
+
+// -------------------------------------------------------------------
+//                           postprocess
+// -------------------------------------------------------------------
+
+function customRound(n: number) {
+  return Number.parseFloat(n.toFixed(2))
+}
+
+function toHex(arr: RawColor) {
+  const str = arr[3] === undefined
+    ? Color.lch(arr).hex()
+    : Color.lch(arr).hexa()
+
+  return str.toLowerCase()
+}
+
+let k: keyof typeof ColorTokens, values: [RawColor, RawColor]
+for (k in ColorTokens) {
+  values = ColorTokens[k]
+
+  if (!Array.isArray(values[0])) {
+    ColorTokens[k] = toHex(values)
+    continue
+  }
+
+  values[0] = toHex(values[0])
+  values[1] = toHex(values[1])
+
+  // if (!Array.isArray(values)) {
+  //   ColorTokens[k] = Color(values).lch().array().map(customRound)
+  //   continue
+  // }
+  // values[0] = Color(values[0]).lch().array().map(customRound)
+  // values[1] = Color(values[1]).lch().array().map(customRound)
+}
+console.log(ColorTokens)
