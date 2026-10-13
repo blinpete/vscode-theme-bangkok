@@ -1,4 +1,12 @@
+import type { ColorInstance } from 'color'
 import Color from 'color'
+
+function lshift(c: ColorInstance, shift: number) {
+  const arr = c.lch().array()
+  arr[0] += shift
+
+  return Color.lch(arr)
+}
 
 export const colors = {
   black: '#111',
@@ -15,53 +23,120 @@ export const colors = {
 
 type RawColor = [number, number, number] | [number, number, number, number] | number[]
 
+const luminosity = 5
+const _background = Color.lch([luminosity, 0, 0])
+const _bg_shadow = lshift(_background, 80)
+const _bg_selection = Color.lch([luminosity + 60, 10, 60, 0.1])
+
+const _subtle = lshift(_background, 35)
+const _neutral = Color.lch([luminosity + 45, 4, 20])
+const _neutral_2 = Color.lch([luminosity + 35, 6, 20])
+const _warm = Color.lch([luminosity + 40, 25, 35])
+const _warm_2 = Color.lch([luminosity + 30, 40, 35])
+const _warm_3 = Color.lch([luminosity + 42, 5, 205])
+const _warm_3_alt = Color.lch([luminosity + 30, 5, 205])
+const _cold = Color.lch([luminosity + 35, 25, 290])
+
+// warm 3 (LCH)
+// 1) 49.5 22 299
+// 1) 45 20 325
+// 3) 60 0 0 + bold
+
 // [dark, light]
 export const ColorTokens = {
-  primary: [[50, 30.86, 162.77], [39.96, 35.07, 158.32]],
-
-  foreground: [[70, 6.95, 97.29, 0.93], [24.14, 3.99, 116.07]],
-  activeForeground: [[60, 8.8, 96.74], [33.28, 5.04, 114.37]],
-  secondaryForeground: [[55, 3.71, 98.57, 0.56], [24.14, 3.99, 116.07, 0.56]],
-
-  ignored: [[70, 3.71, 98.57, 0.31], [24.14, 3.99, 116.07, 0.31]],
-  faded: [[70, 3.71, 98.57, 0.06], [24.14, 3.99, 116.07, 0.06]],
-  border: [[10, 0, 158.2], [94.8, 0, 158.2]],
-
-  background: [[5, 0, 0], [100, 0, 0]],
-  activeBackground: [[10, 0, 0], [97.23, 0, 0]],
-  selectionBackground: [[90, 0, 0, 0.09], [13.23, 0, 0, 0.09]],
-  selectionBackgroundActive: [[90, 0, 0, 0.09], [13.23, 0, 0, 0.09]],
-  selectionBackgroundInActive: [[80, 0, 0, 0.06], [13.23, 0, 0, 0.06]],
+  primary: [
+    // [luminosity + 45, 15, 205],
+    _warm.array(),
+    [39.96, 35.07, 158.32],
+  ],
+  foreground: [
+    lshift(_background, 45).array(),
+    [24.14, 3.99, 116.07],
+  ],
+  activeForeground: [
+    lshift(_background, 50).array(),
+    [33.28, 5.04, 114.37],
+  ],
+  secondaryForeground: [
+    lshift(_background, 30).array(),
+    [24.14, 3.99, 116.07, 0.565],
+  ],
+  ignored: [
+    _bg_shadow.alpha(0.25).array(),
+    [24.14, 3.99, 116.07, 0.314],
+  ],
+  faded: [
+    _bg_shadow.alpha(0.15).array(),
+    [24.14, 3.99, 116.07, 0.0627],
+  ],
+  border: [
+    lshift(_background, 6).array(),
+    [94.8, 0, 158.2],
+  ],
+  background: [
+    _background.array(),
+    [100, 0, 158.2],
+  ],
+  activeBackground: [
+    lshift(_background, 3).array(),
+    [97.23, 0, 158.2],
+  ],
+  selectionBackground: [
+    lshift(_bg_selection, 10).array(),
+    [13.23, 0, 158.2, 0.0941],
+  ],
+  selectionBackgroundActive: [
+    lshift(_bg_selection, 20).array(),
+    [13.23, 0, 158.2, 0.0941],
+  ],
+  selectionBackgroundInActive: [
+    _bg_selection.array(),
+    [13.23, 0, 158.2, 0.0627],
+  ],
 
   // soft overrides
-  softBackground: [[13, 0, 0], [94.7, 3.6, 104.21]],
-  softActiveBackground: [[16, 0, 0], [90.84, 5.22, 101.76]],
-  softBorder: [[15, 0, 0], [90.84, 5.22, 101.76]],
+  softBackground: [[luminosity + 5, 0, 0], [94.7, 3.6, 104.21]],
+  softActiveBackground: [[luminosity + 10, 0, 0], [90.84, 5.22, 101.76]],
+  softBorder: [[luminosity + 10, 0, 0], [90.84, 5.22, 101.76]],
 
   // black overrides
   blackForeground: [65, 6.95, 97.29, 0.8],
   blackBackground: [0, 0, 0],
-  blackActiveBackground: [7, 0, 0],
-  blackPunctuation: [29, 0, 0],
+  blackActiveBackground: [7, 4, 270],
+  blackPunctuation: [25, 0, 0],
 
-  comment: [[45, 11.28, 143.75, 0.87], [69.4, 8.71, 144.01]],
-  string: [[55, 27.94, 36.68], [52.56, 36.22, 37.67]],
-  variable: [[55, 30.22, 74.17], [56.45, 38.98, 69]],
-  keyword: [[55, 30.86, 162.77], [43.6, 37.63, 158.46]],
-  number: [[55, 26.43, 185.77], [47.12, 23.48, 223.02]],
-  boolean: [[55, 30.86, 162.77], [43.6, 37.63, 158.46]],
-  operator: [[55, 36.26, 23.61], [47.66, 36.74, 24.6]],
-  function: [[55, 38.67, 130.18], [51.56, 46.86, 129.85]],
-  constant: [[55, 28.91, 50.7], [47.35, 47.9, 58.33]],
-  class: [[55, 33.45, 288.94], [45.95, 35.75, 287.04]],
-  interface: [[55, 20.93, 223.69], [49.5, 24.82, 218.2]],
-  type: [[55, 28.95, 173], [53.85, 31.05, 182.36]],
-  builtin: [[55, 36.26, 23.61], [47.66, 36.74, 24.6]],
-  property: [[55, 37.17, 96.34], [55.42, 55.46, 93.05]],
-  namespace: [[55, 34.2, 6.6], [49.38, 38.37, 358.81]],
-  punctuation: [[35, 0, 158.2], [63.22, 0, 158.2]],
-  decorator: [[55, 18.67, 21.27], [63.71, 18.67, 21.27]],
-  regex: [[55, 44.35, 47.3], [48.29, 42.32, 47.74]],
+  // semantic tokens
+  // L +30 (low contrast)
+  comment: [lshift(_background, 20).array(), [69.4, 8.71, 144.01]],
+  punctuation: [lshift(_background, 30).array(), [63.22, 0, 158.2]],
+  keyword: [_subtle.array(), [43.6, 37.63, 158.46]],
+
+  // L +40
+  class: [_warm_3_alt.array(), [45.95, 35.75, 287.04]],
+  // class: [_warm_3.array(), [45.95, 35.75, 287.04]],
+  // interface: [[luminosity + 35, 15, 220], [49.5, 24.82, 218.2]],
+  interface: [_cold.array(), [49.5, 24.82, 218.2]],
+  builtin: [_subtle.array(), [47.66, 36.74, 24.6]],
+
+  // L +45
+  string: [_warm.array(), [52.56, 36.22, 37.67]],
+  number: [lshift(_warm, -10).array(), [47.12, 23.48, 223.02]],
+  // boolean: [lshift(_warm, -10).array(), [43.6, 37.63, 158.46]],
+  boolean: [_warm_2.array(), [43.6, 37.63, 158.46]],
+  variable: [_neutral.array(), [56.45, 38.98, 69]],
+  operator: [_subtle.array(), [47.66, 36.74, 24.6]],
+  type: [_cold.array(), [53.85, 31.05, 182.36]],
+
+  // L +50
+  regex: [[luminosity + 50, 45, 45], [48.29, 42.32, 47.74]],
+
+  // L +55
+  function: [_warm_3.array(), [51.56, 46.86, 129.85]],
+  constant: [[luminosity + 55, 30, 50], [47.35, 47.9, 58.33]],
+  property: [_neutral_2.array(), [55.42, 55.46, 93.05]],
+  // property: [[luminosity + 50, 5, 75], [55.42, 55.46, 93.05]],
+  namespace: [[luminosity + 55, 35, 5], [49.38, 38.37, 358.81]],
+  decorator: [[luminosity + 55, 20, 20], [63.71, 18.67, 21.27]],
 
   // colors
   green: [[55, 30.86, 162.77], [43.6, 37.63, 158.46]],
