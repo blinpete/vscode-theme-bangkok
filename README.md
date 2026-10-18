@@ -1,17 +1,21 @@
 <h1 align="center">Bangkok Theme for VS Code</h1>
 
+>[!WARNING]
+> WIP. EXPERIMENTAL. USE WITH CAUTION.
+
+An opinionated, low-contrast color theme designed for working in dim evening environments. Only two major accent hues, most syntax is differentiated through luminosity rather than color.
+
+Warm, cozy, and deliberately restrained. It keeps important tokens gently visible without harsh contrast or visual noise.
+
 <!-- <p align="center">
 <a href="https://marketplace.visualstudio.com/items?itemName=antfu.theme-vitesse" target="__blank"><img src="https://img.shields.io/visual-studio-marketplace/v/antfu.theme-vitesse.svg?color=4d9375&amp;label=Marketplace&logo=visual-studio-code" alt="Visual Studio Marketplace Version" /></a>
 </p>
 -->
 
 <p align="center">
-<!-- <img width="1275" alt="Screenshot Light Mode" src="https://github.com/user-attachments/assets/7fa3db7a-5b11-4622-a59b-1f7b3f837d0d"> -->
-<img width="2349" height="1636" alt="Screenshot Dark Mode" src="https://github.com/user-attachments/assets/6fd6c948-fd54-4810-b3af-312bee3686b4" />
+<img width="2048" alt="Screenshot Dark Mode" src="https://github.com/user-attachments/assets/6fd6c948-fd54-4810-b3af-312bee3686b4" />
 <sub><samp>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Font | <a href="https://github.com/source-foundry/Hack">Hack</a><br>
 &nbsp;&nbsp;&nbsp;&nbsp;File Icons | <a href="https://marketplace.visualstudio.com/items?itemName=miguelsolorio.symbols">Symbols</a><br>
-
-<!-- <sub><samp>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Font <a href="https://github.com/source-foundry/Hack">Hack</a> • File Icons <a href="https://marketplace.visualstudio.com/items?itemName=miguelsolorio.symbols">Symbols</a> -->
 </p>
 
 ## Match with System
@@ -30,7 +34,6 @@
 ## Thanks
 
 This project is based on [vscode-theme-vitesse](https://github.com/antfu/vscode-theme-vitesse).
-
 
 ## License
 
