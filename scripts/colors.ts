@@ -1,3 +1,13 @@
+import type { ColorInstance } from 'color'
+import Color from 'color'
+
+function lshift(c: ColorInstance, shift: number) {
+  const arr = c.lch().array()
+  arr[0] += shift
+
+  return Color.lch(arr)
+}
+
 export const colors = {
   black: '#111',
   white: '#fff',
@@ -11,60 +21,166 @@ export const colors = {
   pink: ['#ffeef8', '#fedbf0', '#f9b3dd', '#f692ce', '#ec6cb9', '#ea4aaa', '#d03592', '#b93a86', '#99306f', '#6d224f'],
 }
 
+type RawColor = [number, number, number] | [number, number, number, number] | number[]
+
+const luminosity = 5
+const _background = Color.lch([luminosity, 0, 0])
+const _bg_shadow = lshift(_background, 80)
+const _bg_selection = Color.lch([luminosity + 60, 10, 60, 0.1])
+
+const _subtle = lshift(_background, 35)
+const _neutral = Color.lch([luminosity + 45, 4, 20])
+const _neutral_2 = Color.lch([luminosity + 35, 6, 20])
+const _warm = Color.lch([luminosity + 40, 25, 35])
+const _warm_2 = Color.lch([luminosity + 30, 40, 35])
+const _warm_3 = Color.lch([luminosity + 42, 5, 205])
+const _warm_3_alt = Color.lch([luminosity + 30, 5, 205])
+const _cold = Color.lch([luminosity + 35, 25, 290])
+
+// warm 3 (LCH)
+// 1) 49.5 22 299
+// 1) 45 20 325
+// 3) 60 0 0 + bold
+
 // [dark, light]
-export const VitesseThemes = {
-  primary: ['#4d9375', '#1c6b48'],
-
-  foreground: ['#dbd7caee', '#393a34'],
-  activeForeground: ['#bfbaaa', '#4e4f47'],
-  secondaryForeground: ['#dedcd590', '#393a3490'],
-
-  ignored: ['#dedcd550', '#393a3450'],
-  faded: ['#dedcd510', '#393a3410'],
-  border: ['#191919', '#f0f0f0'],
-
-  background: ['#121212', '#ffffff'],
-  activeBackground: ['#181818', '#f7f7f7'],
-  selectionBackground: ['#eeeeee18', '#22222218'],
-  selectionBackgroundActive: ['#eeeeee18', '#22222218'],
-  selectionBackgroundInActive: ['#eeeeee10', '#22222210'],
+export const ColorTokens = {
+  primary: [
+    // [luminosity + 45, 15, 205],
+    _warm.array(),
+    [39.96, 35.07, 158.32],
+  ],
+  foreground: [
+    lshift(_background, 45).array(),
+    [24.14, 3.99, 116.07],
+  ],
+  activeForeground: [
+    lshift(_background, 50).array(),
+    [33.28, 5.04, 114.37],
+  ],
+  secondaryForeground: [
+    lshift(_background, 30).array(),
+    [24.14, 3.99, 116.07, 0.565],
+  ],
+  ignored: [
+    _bg_shadow.alpha(0.25).array(),
+    [24.14, 3.99, 116.07, 0.314],
+  ],
+  faded: [
+    _bg_shadow.alpha(0.15).array(),
+    [24.14, 3.99, 116.07, 0.0627],
+  ],
+  border: [
+    lshift(_background, 6).array(),
+    [94.8, 0, 158.2],
+  ],
+  background: [
+    _background.array(),
+    [100, 0, 158.2],
+  ],
+  activeBackground: [
+    lshift(_background, 3).array(),
+    [97.23, 0, 158.2],
+  ],
+  selectionBackground: [
+    lshift(_bg_selection, 10).array(),
+    [13.23, 0, 158.2, 0.0941],
+  ],
+  selectionBackgroundActive: [
+    lshift(_bg_selection, 20).array(),
+    [13.23, 0, 158.2, 0.0941],
+  ],
+  selectionBackgroundInActive: [
+    _bg_selection.array(),
+    [13.23, 0, 158.2, 0.0627],
+  ],
 
   // soft overrides
-  softBackground: ['#222', '#F1F0E9'],
-  softActiveBackground: ['#292929', '#E7E5DB'],
-  softBorder: ['#252525', '#E7E5DB'],
+  softBackground: [[luminosity + 5, 0, 0], [94.7, 3.6, 104.21]],
+  softActiveBackground: [[luminosity + 10, 0, 0], [90.84, 5.22, 101.76]],
+  softBorder: [[luminosity + 10, 0, 0], [90.84, 5.22, 101.76]],
 
   // black overrides
-  blackForeground: '#dbd7cacc',
-  blackBackground: '#000',
-  blackActiveBackground: '#121212',
-  blackPunctuation: '#444444',
+  blackForeground: [65, 6.95, 97.29, 0.8],
+  blackBackground: [0, 0, 0],
+  blackActiveBackground: [7, 4, 270],
+  blackPunctuation: [25, 0, 0],
 
-  comment: ['#758575dd', '#a0ada0'],
-  string: ['#c98a7d', '#b56959'],
-  variable: ['#bd976a', '#b07d48'],
-  keyword: ['#4d9375', '#1e754f'],
-  number: ['#4C9A91', '#2f798a'],
-  boolean: ['#4d9375', '#1e754f'],
-  operator: ['#cb7676', '#ab5959'],
-  function: ['#80a665', '#59873a'],
-  constant: ['#c99076', '#a65e2b'],
-  class: ['#6872ab', '#5a6aa6'],
-  interface: ['#5d99a9', '#2e808f'],
-  type: ['#5DA994', '#2e8f82'],
-  builtin: ['#cb7676', '#ab5959'],
-  property: ['#b8a965', '#998418'],
-  namespace: ['#db889a', '#b05a78'],
-  punctuation: ['#666666', '#999999'],
-  decorator: ['#bd8f8f', '#bd8f8f'],
-  regex: ['#c4704f', '#ab5e3f'],
+  // semantic tokens
+  // L +30 (low contrast)
+  comment: [lshift(_background, 20).array(), [69.4, 8.71, 144.01]],
+  punctuation: [lshift(_background, 30).array(), [63.22, 0, 158.2]],
+  keyword: [_subtle.array(), [43.6, 37.63, 158.46]],
+
+  // L +40
+  class: [_warm_3_alt.array(), [45.95, 35.75, 287.04]],
+  // class: [_warm_3.array(), [45.95, 35.75, 287.04]],
+  // interface: [[luminosity + 35, 15, 220], [49.5, 24.82, 218.2]],
+  interface: [_cold.array(), [49.5, 24.82, 218.2]],
+  builtin: [_subtle.array(), [47.66, 36.74, 24.6]],
+
+  // L +45
+  string: [_warm.array(), [52.56, 36.22, 37.67]],
+  number: [lshift(_warm, -10).array(), [47.12, 23.48, 223.02]],
+  // boolean: [lshift(_warm, -10).array(), [43.6, 37.63, 158.46]],
+  boolean: [_warm_2.array(), [43.6, 37.63, 158.46]],
+  variable: [_neutral.array(), [56.45, 38.98, 69]],
+  operator: [_subtle.array(), [47.66, 36.74, 24.6]],
+  type: [_cold.array(), [53.85, 31.05, 182.36]],
+
+  // L +50
+  regex: [[luminosity + 50, 45, 45], [48.29, 42.32, 47.74]],
+
+  // L +55
+  function: [_warm_3.array(), [51.56, 46.86, 129.85]],
+  constant: [[luminosity + 55, 30, 50], [47.35, 47.9, 58.33]],
+  property: [_neutral_2.array(), [55.42, 55.46, 93.05]],
+  // property: [[luminosity + 50, 5, 75], [55.42, 55.46, 93.05]],
+  namespace: [[luminosity + 55, 35, 5], [49.38, 38.37, 358.81]],
+  decorator: [[luminosity + 55, 20, 20], [63.71, 18.67, 21.27]],
 
   // colors
-  green: ['#4d9375', '#1e754f'],
-  cyan: ['#5eaab5', '#2993a3'],
-  blue: ['#6394bf', '#296aa3'],
-  red: ['#cb7676', '#ab5959'],
-  orange: ['#d4976c', '#a65e2b'],
-  yellow: ['#e6cc77', '#bda437'],
-  magenta: ['#d9739f', '#a13865'],
-} satisfies Record<string, [string, string] | string>
+  green: [[55, 30.86, 162.77], [43.6, 37.63, 158.46]],
+  cyan: [[55, 24.29, 212.24], [56.07, 29.18, 215.53]],
+  blue: [[55, 27.78, 260.53], [43.39, 36.62, 269.15]],
+  red: [[55, 36.26, 23.61], [47.66, 36.74, 24.6]],
+  orange: [[55, 36.4, 60.51], [47.35, 47.9, 58.33]],
+  yellow: [[55, 45.48, 92.3], [67.76, 57.23, 92.82]],
+  magenta: [[55, 45.23, 352.95], [40.16, 47.6, 356.42]],
+} satisfies Record<string, [RawColor, RawColor] | RawColor>
+
+// -------------------------------------------------------------------
+//                           postprocess
+// -------------------------------------------------------------------
+
+function customRound(n: number) {
+  return Number.parseFloat(n.toFixed(2))
+}
+
+function toHex(arr: RawColor) {
+  const str = arr[3] === undefined
+    ? Color.lch(arr).hex()
+    : Color.lch(arr).hexa()
+
+  return str.toLowerCase()
+}
+
+let k: keyof typeof ColorTokens, values: [RawColor, RawColor]
+for (k in ColorTokens) {
+  values = ColorTokens[k]
+
+  if (!Array.isArray(values[0])) {
+    ColorTokens[k] = toHex(values)
+    continue
+  }
+
+  values[0] = toHex(values[0])
+  values[1] = toHex(values[1])
+
+  // if (!Array.isArray(values)) {
+  //   ColorTokens[k] = Color(values).lch().array().map(customRound)
+  //   continue
+  // }
+  // values[0] = Color(values[0]).lch().array().map(customRound)
+  // values[1] = Color(values[1]).lch().array().map(customRound)
+}
+console.log(ColorTokens)

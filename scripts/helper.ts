@@ -1,4 +1,4 @@
-import { colors, VitesseThemes } from './colors'
+import { colors, ColorTokens } from './colors'
 
 export interface GetThemeOptions {
   color: 'light' | 'dark'
@@ -41,12 +41,12 @@ function capitalize(str: string) {
 export function createThemeHelpers({ color, soft = false, black = false }: GetThemeOptions) {
   const pick = (options: { light?: string, dark?: string }) => options[color]
 
-  const v = (key: keyof typeof VitesseThemes, op = '') => {
+  const v = (key: keyof typeof ColorTokens, op = '') => {
     let obj = black
-      ? VitesseThemes[`black${capitalize(key)}` as keyof typeof VitesseThemes] || VitesseThemes[key]
+      ? ColorTokens[`black${capitalize(key)}` as keyof typeof ColorTokens] || ColorTokens[key]
       : soft
-        ? VitesseThemes[`soft${capitalize(key)}` as keyof typeof VitesseThemes] || VitesseThemes[key]
-        : VitesseThemes[key]
+        ? ColorTokens[`soft${capitalize(key)}` as keyof typeof ColorTokens] || ColorTokens[key]
+        : ColorTokens[key]
 
     if (typeof obj === 'string')
       obj = [obj, obj]

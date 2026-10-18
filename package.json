@@ -1,21 +1,23 @@
 {
-  "publisher": "antfu",
-  "name": "theme-vitesse",
-  "displayName": "Vitesse Theme",
-  "version": "1.0.1",
+  "publisher": "blinpete",
+  "name": "theme-bangkok",
+  "displayName": "Bangkok Theme",
+  "version": "0.1.0",
   "packageManager": "pnpm@10.15.0",
-  "description": "Vitesse theme for VS Code",
+  "description": "Bangkok theme for VS Code",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/antfu/vscode-theme-vitesse"
+    "url": "https://github.com/blinpete/vscode-theme-bangkok"
   },
   "bugs": {
-    "url": "https://github.com/antfu/vscode-theme-vitesse/issues"
+    "url": "https://github.com/blinpete/vscode-theme-bangkok/issues"
   },
   "keywords": [
     "theme",
-    "vitesse",
+    "bangkok",
+    "luminosity",
+    "oklch",
     "light",
     "dark"
   ],
@@ -38,29 +40,29 @@
   "contributes": {
     "themes": [
       {
-        "label": "Vitesse Light",
+        "label": "Bangkok Light",
         "uiTheme": "vs",
-        "path": "./themes/vitesse-light.json"
+        "path": "./themes/light.json"
       },
       {
-        "label": "Vitesse Dark",
+        "label": "Bangkok Dark",
         "uiTheme": "vs-dark",
-        "path": "./themes/vitesse-dark.json"
+        "path": "./themes/dark.json"
       },
       {
-        "label": "Vitesse Black",
+        "label": "Bangkok Black",
         "uiTheme": "vs-dark",
-        "path": "./themes/vitesse-black.json"
+        "path": "./themes/black.json"
       },
       {
-        "label": "Vitesse Light Soft",
+        "label": "Bangkok Light Soft",
         "uiTheme": "vs",
-        "path": "./themes/vitesse-light-soft.json"
+        "path": "./themes/light-soft.json"
       },
       {
-        "label": "Vitesse Dark Soft",
+        "label": "Bangkok Dark Soft",
         "uiTheme": "vs-dark",
-        "path": "./themes/vitesse-dark-soft.json"
+        "path": "./themes/dark-soft.json"
       }
     ]
   },
