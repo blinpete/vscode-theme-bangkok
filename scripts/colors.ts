@@ -106,35 +106,35 @@ export const ColorTokens_lch = {
   blackPunctuation: [25, 0, 0],
 
   // semantic tokens
-  // L +30 (low contrast)
+  // L +20 (lowest contrast)
   comment: [lshift(_background, 20).array(), [69.4, 8.71, 144.01]],
-  punctuation: [lshift(_background, 30).array(), [63.22, 0, 158.2]],
-  keyword: [_subtle.array(), [43.6, 37.63, 158.46]],
+  punctuation: [lshift(_background, 30).array(), [63.22, 0, 0]],
 
-  // L +40
   class: [_warm_3_alt.array(), [45.95, 35.75, 287.04]],
   // class: [_warm_3.array(), [45.95, 35.75, 287.04]],
-  // interface: [[luminosity + 35, 15, 220], [49.5, 24.82, 218.2]],
-  interface: [_cold.array(), [49.5, 24.82, 218.2]],
-  builtin: [_subtle.array(), [47.66, 36.74, 24.6]],
 
-  // L +45
-  string: [_warm.array(), [52.56, 36.22, 37.67]],
-  number: [lshift(_warm, -10).array(), [47.12, 23.48, 223.02]],
-  // boolean: [lshift(_warm, -10).array(), [43.6, 37.63, 158.46]],
-  boolean: [_warm_2.array(), [43.6, 37.63, 158.46]],
-  variable: [_neutral.array(), [56.45, 38.98, 69]],
+  // L +35 (low contrast)
+  keyword: [_subtle.array(), [43.6, 37.63, 158.46]],
+  builtin: [_subtle.array(), [47.66, 36.74, 24.6]],
   operator: [_subtle.array(), [47.66, 36.74, 24.6]],
+  interface: [_cold.array(), [49.5, 24.82, 218.2]],
+  // interface: [[luminosity + 35, 15, 220], [49.5, 24.82, 218.2]],
   type: [_cold.array(), [53.85, 31.05, 182.36]],
+
+  // L +30 - +45
+  number: [lshift(_warm, -10).array(), [47.12, 23.48, 223.02]],
+  boolean: [_warm_2.array(), [43.6, 37.63, 158.46]],
+  property: [_neutral_2.array(), [55.42, 55.46, 93.05]],
+  // property: [[luminosity + 50, 5, 75], [55.42, 55.46, 93.05]],
+  string: [_warm.array(), [52.56, 36.22, 37.67]],
+  function: [_warm_3.array(), [51.56, 46.86, 129.85]],
+  variable: [_neutral.array(), [56.45, 38.98, 69]],
 
   // L +50
   regex: [[luminosity + 50, 45, 45], [48.29, 42.32, 47.74]],
 
   // L +55
-  function: [_warm_3.array(), [51.56, 46.86, 129.85]],
   constant: [[luminosity + 55, 30, 50], [47.35, 47.9, 58.33]],
-  property: [_neutral_2.array(), [55.42, 55.46, 93.05]],
-  // property: [[luminosity + 50, 5, 75], [55.42, 55.46, 93.05]],
   namespace: [[luminosity + 55, 35, 5], [49.38, 38.37, 358.81]],
   decorator: [[luminosity + 55, 20, 20], [63.71, 18.67, 21.27]],
 
