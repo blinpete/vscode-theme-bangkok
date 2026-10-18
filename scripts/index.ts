@@ -6,14 +6,14 @@ console.log('starting')
 
 fs.mkdir('./themes', { recursive: true })
   .then(() => Promise.all([
-    fs.writeJSON(
-      './themes/light.json',
-      getTheme({
-        color: 'light',
-        name: 'Bangkok Light',
-      }),
-      { spaces: 2 },
-    ),
+    // fs.writeJSON(
+    //   './themes/light.json',
+    //   getTheme({
+    //     color: 'light',
+    //     name: 'Bangkok Light',
+    //   }),
+    //   { spaces: 2 },
+    // ),
     fs.writeJSON(
       './themes/dark.json',
       getTheme({
@@ -31,15 +31,15 @@ fs.mkdir('./themes', { recursive: true })
       }),
       { spaces: 2 },
     ),
-    fs.writeJSON(
-      './themes/light-soft.json',
-      getTheme({
-        color: 'light',
-        name: 'Bangkok Light Soft',
-        soft: true,
-      }),
-      { spaces: 2 },
-    ),
+    // fs.writeJSON(
+    //   './themes/light-soft.json',
+    //   getTheme({
+    //     color: 'light',
+    //     name: 'Bangkok Light Soft',
+    //     soft: true,
+    //   }),
+    //   { spaces: 2 },
+    // ),
     fs.writeJSON(
       './themes/dark-soft.json',
       getTheme({
@@ -53,14 +53,14 @@ fs.mkdir('./themes', { recursive: true })
 
 fs.mkdir('./extra', { recursive: true })
   .then(() => Promise.all([
-    fs.writeJSON(
-      './extra/xterm-light.json',
-      getXtermTheme({
-        color: 'light',
-        name: 'Bangkok Light',
-      }),
-      { spaces: 2 },
-    ),
+    // fs.writeJSON(
+    //   './extra/xterm-light.json',
+    //   getXtermTheme({
+    //     color: 'light',
+    //     name: 'Bangkok Light',
+    //   }),
+    //   { spaces: 2 },
+    // ),
     fs.writeJSON(
       './extra/xterm-dark.json',
       getXtermTheme({
