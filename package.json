@@ -91,6 +91,7 @@
     "tsup": "^8.5.0",
     "tsx": "^4.20.4",
     "typescript": "^5.9.2",
+    "vscode-typed-theme-generator": "^4.0.1",
     "vsxpub": "^0.1.0"
   },
   "preview": true

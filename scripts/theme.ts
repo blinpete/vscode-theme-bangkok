@@ -1,3 +1,4 @@
+import type { VsCodeTheme } from 'vscode-typed-theme-generator'
 import type { GetThemeOptions } from './helper'
 import { toArray } from '@antfu/utils'
 import { ColorTokens } from './colors'
@@ -25,14 +26,18 @@ export default function getTheme(options: GetThemeOptions) {
   const selectionBackgroundActive = v('selectionBackgroundActive')
   const selectionBackgroundInActive = v('selectionBackgroundInActive')
 
-  const theme = {
+  const theme: VsCodeTheme = {
     name: options.name,
     base: pick({ light: 'vs', dark: 'vs-dark' }),
     colors: {
       'focusBorder': '#00000000',
       foreground,
+      'icon.foreground': foreground,
       'descriptionForeground': secondaryForeground,
+      'sideBarSectionHeader.foreground': foreground,
       'errorForeground': v('red'),
+      'editorCursor.foreground': foreground,
+      'editorBracketMatch.border': secondaryForeground,
 
       'textLink.foreground': primary,
       'textLink.activeForeground': primary,

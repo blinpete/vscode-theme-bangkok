@@ -43,7 +43,7 @@ const _cold = Color.lch([luminosity + 35, 25, 290])
 // 3) 60 0 0 + bold
 
 // [dark, light]
-export const ColorTokens = {
+export const ColorTokens_lch = {
   primary: [
     // [luminosity + 45, 15, 205],
     _warm.array(),
@@ -164,20 +164,25 @@ function toHex(arr: RawColor) {
   return str.toLowerCase()
 }
 
-let k: keyof typeof ColorTokens, values: [RawColor, RawColor]
-for (k in ColorTokens) {
-  values = ColorTokens[k]
+let k: keyof typeof ColorTokens_lch, values: [RawColor, RawColor]
+
+export const ColorTokens: Record<string, string[] | string> = {}
+
+for (k in ColorTokens_lch) {
+  values = ColorTokens_lch[k]
 
   if (!Array.isArray(values[0])) {
     ColorTokens[k] = toHex(values)
     continue
   }
 
-  values[0] = toHex(values[0])
-  values[1] = toHex(values[1])
+  ColorTokens[k] = [
+    toHex(values[0]),
+    toHex(values[1]),
+  ]
 
   // if (!Array.isArray(values)) {
-  //   ColorTokens[k] = Color(values).lch().array().map(customRound)
+  //   ColorTokens_lch[k] = Color(values).lch().array().map(customRound)
   //   continue
   // }
   // values[0] = Color(values[0]).lch().array().map(customRound)

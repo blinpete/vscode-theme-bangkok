@@ -53,6 +53,9 @@ importers:
       typescript:
         specifier: ^5.9.2
         version: 5.9.2
+      vscode-typed-theme-generator:
+        specifier: ^4.0.1
+        version: 4.0.1
       vsxpub:
         specifier: ^0.1.0
         version: 0.1.0
@@ -2926,6 +2929,10 @@ packages:
   version-range@4.14.0:
     resolution: {integrity: sha512-gjb0ARm9qlcBAonU4zPwkl9ecKkas+tC2CGwFfptTCWWIVTWY1YUbT2zZKsOAF1jR/tNxxyLwwG0cb42XlYcTg==}
     engines: {node: '>=4'}
+
+  vscode-typed-theme-generator@4.0.1:
+    resolution: {integrity: sha512-C7LcvjeDk4c6oaUjk/0T52iqn+PxkJ6YHuvN4265l30kJboEjRzR9T8ECbOfUeiSvsgJ9i8cU4emPpGHZaqtXQ==}
+    engines: {node: '>=20'}
 
   vsxpub@0.1.0:
     resolution: {integrity: sha512-iEs+w7dArxVDCUfwEGtxCG/9ku0vR4GknF9Fn5uT7GwrxxBTRD03LwxQk4L9kRrjj89O18xTQ/0nQc9MHs8STQ==}
@@ -6219,6 +6226,8 @@ snapshots:
       spdx-expression-parse: 3.0.1
 
   version-range@4.14.0: {}
+
+  vscode-typed-theme-generator@4.0.1: {}
 
   vsxpub@0.1.0:
     dependencies:
