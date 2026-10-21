@@ -2,7 +2,7 @@
   "publisher": "blinpete",
   "name": "theme-bangkok",
   "displayName": "Bangkok Theme",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "packageManager": "pnpm@10.15.0",
   "description": "Bangkok theme for VS Code",
   "license": "MIT",
