@@ -61,14 +61,14 @@ const LIGHT = {
   _background: _background_light,
   _bg_shadow: lshift(_background_light, -80),
   _bg_selection: Color.lch([luminosity_light - 60, 10, 60, 0.1]),
-  _subtle: lshift(_background_light, -35),
-  _subtle_2: Color.lch([luminosity_light - 35, 25, 290]),
-  _neutral: Color.lch([luminosity_light - 45, 4, 20]),
-  _neutral_2: Color.lch([luminosity_light - 35, 6, 20]),
-  _accent_1: Color.lch([luminosity_light - 40, 25, 35]),
-  _accent_1_alt: Color.lch([luminosity_light - 30, 40, 35]),
-  _accent_1_alt_alt: Color.lch([luminosity_light - 30, 5, 205]),
-  _accent_2: Color.lch([luminosity_light - 42, 5, 205]),
+  _subtle: Color.lch([luminosity_light - 35 + 5, 5, 40]),
+  _subtle_2:         Color.lch([luminosity_light - 35, 25, 290]),
+  _neutral:           Color.lch([luminosity_light - 45 + 5, 6 + 4, 40]),
+  _neutral_2:         Color.lch([luminosity_light - 35 + 5, 6 + 6, 40]),
+  _accent_1:         Color.lch([luminosity_light - 40 + 5, 25, 35]),
+  _accent_1_alt:     Color.lch([luminosity_light - 30, 40, 35]),
+  _accent_1_alt_alt:  Color.lch([luminosity_light - 30 + 0, 5 + 8, 325]),
+  _accent_2:          Color.lch([luminosity_light - 42 + 5, 5 + 8, 225]),
 }
 
 // [dark, light]
@@ -124,9 +124,9 @@ export const ColorTokens_lch = {
   ],
 
   // soft overrides
-  softBackground:       [[luminosity + 5, 0, 0], [luminosity_light - 5, 5, 100]],
-  softActiveBackground: [[luminosity + 10, 0, 0], [luminosity_light - 10, 5, 100]],
-  softBorder:           [[luminosity + 10, 0, 0], [luminosity_light - 10, 5, 100]],
+  softBackground:       [[luminosity + 5, 0, 0], [luminosity_light - 5, 4, 70]],
+  softActiveBackground: [[luminosity + 10, 0, 0], [luminosity_light - 10, 4, 70]],
+  softBorder:           [[luminosity + 10, 0, 0], [luminosity_light - 10, 4, 70]],
 
   // black overrides
   blackForeground: [65, 6.95, 97.29, 0.8],
@@ -136,10 +136,11 @@ export const ColorTokens_lch = {
 
   // semantic tokens
   // L +20 (lowest contrast)
-  comment: [lshift(DARK._background, 20).array(), lshift(LIGHT._background, -20).array()],
-  punctuation: [lshift(DARK._background, 30).array(), lshift(LIGHT._background, -30).array()],
+  // comment: [lshift(DARK._background, 20).array(), lshift(LIGHT._background, -20).array()],
+  comment: [lshift(DARK._background, 20).array(), [luminosity_light - 20, 5, 70]],
+  punctuation: [lshift(DARK._background, 30).array(), lshift(LIGHT._background, -30 + 5).array()],
 
-  class: [DARK._accent_1_alt_alt.array(), DARK._accent_1_alt_alt.array()],
+  class: [DARK._accent_1_alt_alt.array(), LIGHT._accent_1_alt_alt.array()],
   // class: [DARK._accent_2.array(), [45.95, 35.75, 287.04]],
 
   // L +35 (low contrast)
