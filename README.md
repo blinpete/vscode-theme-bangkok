@@ -3,7 +3,7 @@
 >[!WARNING]
 > WIP. EXPERIMENTAL. USE WITH CAUTION.
 
-An opinionated, low-contrast color theme designed for working in dim evening environments. Only two major accent hues, most syntax is differentiated through luminosity rather than color.
+An opinionated, low-contrast color theme designed for working in dim evening environments.
 
 Warm, cozy, and deliberately restrained. It keeps important tokens gently visible without harsh contrast or visual noise.
 
