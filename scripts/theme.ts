@@ -34,7 +34,6 @@ export default function getTheme(options: GetThemeOptions) {
       foreground,
       'icon.foreground': foreground,
       'descriptionForeground': secondaryForeground,
-      'sideBarSectionHeader.foreground': foreground,
       'errorForeground': v('red'),
       'editorCursor.foreground': foreground,
       'editorBracketMatch.border': secondaryForeground,

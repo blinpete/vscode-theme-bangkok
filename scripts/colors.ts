@@ -23,81 +23,110 @@ export const colors = {
 
 type RawColor = [number, number, number] | [number, number, number, number] | number[]
 
+// ---------------------------------------------------------------------
+//                               Dark base
+// ---------------------------------------------------------------------
+
 const luminosity = 5
 const _background = Color.lch([luminosity, 0, 0])
-const _bg_shadow = lshift(_background, 80)
-const _bg_selection = Color.lch([luminosity + 60, 10, 60, 0.1])
 
-const _subtle = lshift(_background, 35)
-const _neutral = Color.lch([luminosity + 45, 4, 20])
-const _neutral_2 = Color.lch([luminosity + 35, 6, 20])
-const _warm = Color.lch([luminosity + 40, 25, 35])
-const _warm_2 = Color.lch([luminosity + 30, 40, 35])
-const _warm_3 = Color.lch([luminosity + 42, 5, 205])
-const _warm_3_alt = Color.lch([luminosity + 30, 5, 205])
-const _cold = Color.lch([luminosity + 35, 25, 290])
+const DARK = {
+  _luminosity: luminosity,
+  _background,
+  _bg_shadow: lshift(_background, 80),
+  _bg_selection: Color.lch([luminosity + 60, 10, 60, 0.1]),
+  _subtle: lshift(_background, 35),
+  _subtle_2: Color.lch([luminosity + 35, 25, 290]),
+  _neutral: Color.lch([luminosity + 45, 4, 20]),
+  _neutral_2: Color.lch([luminosity + 35, 6, 20]),
+  _accent_1: Color.lch([luminosity + 40, 25, 35]),
+  _accent_1_alt: Color.lch([luminosity + 30, 40, 35]),
+  _accent_1_alt_alt: Color.lch([luminosity + 30, 5, 205]),
+  _accent_2: Color.lch([luminosity + 42, 5, 205]),
+}
 
 // warm 3 (LCH)
 // 1) 49.5 22 299
 // 1) 45 20 325
 // 3) 60 0 0 + bold
 
+// ---------------------------------------------------------------------
+//                              Light base
+// ---------------------------------------------------------------------
+const luminosity_light = 100
+const _background_light = Color.lch([luminosity_light, 0, 0])
+
+const LIGHT = {
+  _luminosity: luminosity_light,
+  _background: _background_light,
+  _bg_shadow: lshift(_background_light, -80),
+  _bg_selection: Color.lch([luminosity_light - 60, 10, 60, 0.1]),
+  _subtle: Color.lch([luminosity_light - 35 + 5, 5, 40]),
+  _subtle_2:         Color.lch([luminosity_light - 35, 25, 290]),
+  _neutral:           Color.lch([luminosity_light - 45 + 5, 6 + 4, 40]),
+  _neutral_2:         Color.lch([luminosity_light - 35 + 5, 6 + 6, 40]),
+  _accent_1:         Color.lch([luminosity_light - 40 + 5, 25, 35]),
+  _accent_1_alt:     Color.lch([luminosity_light - 30, 40, 35]),
+  _accent_1_alt_alt:  Color.lch([luminosity_light - 30 + 0, 5 + 8, 325]),
+  _accent_2:          Color.lch([luminosity_light - 42 + 5, 5 + 8, 225]),
+}
+
 // [dark, light]
 export const ColorTokens_lch = {
   primary: [
     // [luminosity + 45, 15, 205],
-    _warm.array(),
-    [39.96, 35.07, 158.32],
+    DARK._accent_1.array(),
+    LIGHT._accent_1.array(),
   ],
   foreground: [
     lshift(_background, 45).array(),
-    [24.14, 3.99, 116.07],
+    lshift(_background_light, -45).array(),
   ],
   activeForeground: [
     lshift(_background, 50).array(),
-    [33.28, 5.04, 114.37],
+    lshift(_background_light, -50).array(),
   ],
   secondaryForeground: [
     lshift(_background, 30).array(),
-    [24.14, 3.99, 116.07, 0.565],
+    lshift(_background_light, -30).array(),
   ],
   ignored: [
-    _bg_shadow.alpha(0.25).array(),
-    [24.14, 3.99, 116.07, 0.314],
+    DARK._bg_shadow.alpha(0.25).array(),
+    LIGHT._bg_shadow.alpha(0.25).array(),
   ],
   faded: [
-    _bg_shadow.alpha(0.15).array(),
-    [24.14, 3.99, 116.07, 0.0627],
+    DARK._bg_shadow.alpha(0.15).array(),
+    LIGHT._bg_shadow.alpha(0.15).array(),
   ],
   border: [
     lshift(_background, 6).array(),
-    [94.8, 0, 158.2],
+    lshift(_background_light, -6).array(),
   ],
   background: [
-    _background.array(),
-    [100, 0, 158.2],
+    DARK._background.array(),
+    LIGHT._background.array(),
   ],
   activeBackground: [
     lshift(_background, 3).array(),
-    [97.23, 0, 158.2],
+    lshift(_background_light, -3).array(),
   ],
   selectionBackground: [
-    lshift(_bg_selection, 10).array(),
-    [13.23, 0, 158.2, 0.0941],
+    lshift(DARK._bg_selection, 10).array(),
+    lshift(LIGHT._bg_selection, -10).array(),
   ],
   selectionBackgroundActive: [
-    lshift(_bg_selection, 20).array(),
-    [13.23, 0, 158.2, 0.0941],
+    lshift(DARK._bg_selection, 20).array(),
+    lshift(LIGHT._bg_selection, -20).array(),
   ],
   selectionBackgroundInActive: [
-    _bg_selection.array(),
-    [13.23, 0, 158.2, 0.0627],
+    DARK._bg_selection.array(),
+    LIGHT._bg_selection.array(),
   ],
 
   // soft overrides
-  softBackground: [[luminosity + 5, 0, 0], [94.7, 3.6, 104.21]],
-  softActiveBackground: [[luminosity + 10, 0, 0], [90.84, 5.22, 101.76]],
-  softBorder: [[luminosity + 10, 0, 0], [90.84, 5.22, 101.76]],
+  softBackground:       [[luminosity + 5, 0, 0], [luminosity_light - 5, 4, 70]],
+  softActiveBackground: [[luminosity + 10, 0, 0], [luminosity_light - 10, 4, 70]],
+  softBorder:           [[luminosity + 10, 0, 0], [luminosity_light - 10, 4, 70]],
 
   // black overrides
   blackForeground: [65, 6.95, 97.29, 0.8],
@@ -106,37 +135,38 @@ export const ColorTokens_lch = {
   blackPunctuation: [25, 0, 0],
 
   // semantic tokens
-  // L +30 (low contrast)
-  comment: [lshift(_background, 20).array(), [69.4, 8.71, 144.01]],
-  punctuation: [lshift(_background, 30).array(), [63.22, 0, 158.2]],
-  keyword: [_subtle.array(), [43.6, 37.63, 158.46]],
+  // L +20 (lowest contrast)
+  // comment: [lshift(DARK._background, 20).array(), lshift(LIGHT._background, -20).array()],
+  comment: [lshift(DARK._background, 20).array(), [luminosity_light - 20, 5, 70]],
+  punctuation: [lshift(DARK._background, 30).array(), lshift(LIGHT._background, -30 + 5).array()],
 
-  // L +40
-  class: [_warm_3_alt.array(), [45.95, 35.75, 287.04]],
-  // class: [_warm_3.array(), [45.95, 35.75, 287.04]],
+  class: [DARK._accent_1_alt_alt.array(), LIGHT._accent_1_alt_alt.array()],
+  // class: [DARK._accent_2.array(), [45.95, 35.75, 287.04]],
+
+  // L +35 (low contrast)
+  keyword: [DARK._subtle.array(), LIGHT._subtle.array()],
+  builtin: [DARK._subtle.array(), LIGHT._subtle.array()],
+  operator: [DARK._subtle.array(), LIGHT._subtle.array()],
+  interface: [DARK._subtle_2.array(), LIGHT._subtle_2.array()],
   // interface: [[luminosity + 35, 15, 220], [49.5, 24.82, 218.2]],
-  interface: [_cold.array(), [49.5, 24.82, 218.2]],
-  builtin: [_subtle.array(), [47.66, 36.74, 24.6]],
+  type: [DARK._subtle_2.array(), LIGHT._subtle_2.array()],
 
-  // L +45
-  string: [_warm.array(), [52.56, 36.22, 37.67]],
-  number: [lshift(_warm, -10).array(), [47.12, 23.48, 223.02]],
-  // boolean: [lshift(_warm, -10).array(), [43.6, 37.63, 158.46]],
-  boolean: [_warm_2.array(), [43.6, 37.63, 158.46]],
-  variable: [_neutral.array(), [56.45, 38.98, 69]],
-  operator: [_subtle.array(), [47.66, 36.74, 24.6]],
-  type: [_cold.array(), [53.85, 31.05, 182.36]],
+  // L +30 - +45
+  number: [lshift(DARK._accent_1, -10).array(), lshift(LIGHT._accent_1, 10).array()],
+  boolean: [DARK._accent_1_alt.array(), LIGHT._accent_1_alt.array()],
+  property: [DARK._neutral_2.array(), LIGHT._neutral_2.array()],
+  // property: [[luminosity + 50, 5, 75], [55.42, 55.46, 93.05]],
+  string: [DARK._accent_1.array(), LIGHT._accent_1.array()],
+  function: [DARK._accent_2.array(), LIGHT._accent_2.array()],
+  variable: [DARK._neutral.array(), LIGHT._neutral.array()],
 
   // L +50
-  regex: [[luminosity + 50, 45, 45], [48.29, 42.32, 47.74]],
+  regex: [[luminosity + 50, 45, 45], [luminosity_light - 50, 45, 45]],
 
   // L +55
-  function: [_warm_3.array(), [51.56, 46.86, 129.85]],
-  constant: [[luminosity + 55, 30, 50], [47.35, 47.9, 58.33]],
-  property: [_neutral_2.array(), [55.42, 55.46, 93.05]],
-  // property: [[luminosity + 50, 5, 75], [55.42, 55.46, 93.05]],
-  namespace: [[luminosity + 55, 35, 5], [49.38, 38.37, 358.81]],
-  decorator: [[luminosity + 55, 20, 20], [63.71, 18.67, 21.27]],
+  constant: [[luminosity + 55, 30, 50], [luminosity_light - 55, 50, 60]],
+  namespace: [[luminosity + 55, 35, 5], [luminosity_light - 55, 40, 360]],
+  decorator: [[luminosity + 55, 20, 20], [luminosity_light - 55, 20, 20]],
 
   // colors
   green: [[55, 30.86, 162.77], [43.6, 37.63, 158.46]],
@@ -188,4 +218,5 @@ for (k in ColorTokens_lch) {
   // values[0] = Color(values[0]).lch().array().map(customRound)
   // values[1] = Color(values[1]).lch().array().map(customRound)
 }
+console.log(ColorTokens_lch)
 console.log(ColorTokens)
