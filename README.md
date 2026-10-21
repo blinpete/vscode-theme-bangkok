@@ -13,7 +13,10 @@ Warm, cozy, and deliberately restrained. It keeps important tokens gently visibl
 -->
 
 <p align="center">
-<img width="2048" alt="Screenshot Dark Mode" src="https://github.com/user-attachments/assets/6fd6c948-fd54-4810-b3af-312bee3686b4" />
+<img width="2048" alt="Screenshot Bangkok Dark" src="https://github.com/user-attachments/assets/6fd6c948-fd54-4810-b3af-312bee3686b4" />
+<img width="2048" alt="Screenshot Bangkok Light Soft" src="https://github.com/user-attachments/assets/48dad900-063e-42ac-be72-f71e96351b8f" />
+<img width="2048" alt="Screenshot Bangkok Light" src="https://github.com/user-attachments/assets/4bfd6e2b-7eb0-455b-b6e3-a86a2ae2423e" />
+
 <sub><samp>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Font | <a href="https://github.com/source-foundry/Hack">Hack</a><br>
 &nbsp;&nbsp;&nbsp;&nbsp;File Icons | <a href="https://marketplace.visualstudio.com/items?itemName=miguelsolorio.symbols">Symbols</a><br>
 </p>
