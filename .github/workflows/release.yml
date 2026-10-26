@@ -39,8 +39,11 @@ jobs:
         run: pnpm package
 
       - name: Publish Extension
-        run: npx vsxpub --no-dependencies --include git --include ovsx
+        run: npx vsxpub --no-dependencies --include git
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # VSCE_PAT: ${{secrets.VSCE_PAT}}
           # OVSX_PAT: ${{secrets.OVSX_PAT}}
+
+      - name: Publish to open-vsx
+        run: npx ovsx publish --trusted-publishing
