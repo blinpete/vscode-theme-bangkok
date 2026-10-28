@@ -1,9 +1,9 @@
 {
   "background": "#111111",
-  "foreground": "#9e9e9e",
-  "cursor": "#9e9e9e",
-  "selectionBackground": "#f3dfd21a",
-  "selectionInactiveBackground": "#d7c3b71a",
+  "foreground": "#ababab",
+  "cursor": "#ababab",
+  "selectionBackground": "#ffede01a",
+  "selectionInactiveBackground": "#e5d1c41a",
   "brightBlack": "#777777",
   "brightBlue": "#5788b3",
   "brightCyan": "#418f99",
@@ -18,6 +18,6 @@
   "green": "#4b9173",
   "magenta": "#c7638f",
   "red": "#c06c6c",
-  "white": "#9e9e9e",
+  "white": "#ababab",
   "yellow": "#978331"
 }

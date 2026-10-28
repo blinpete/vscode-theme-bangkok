@@ -28,7 +28,7 @@ type RawColor = [number, number, number] | [number, number, number, number] | nu
 // ---------------------------------------------------------------------
 
 const luminosity_bg = 5
-const luminosity = 20
+const luminosity = 25
 const _background = Color.lch([luminosity_bg, 0, 0])
 
 const DARK = {
@@ -36,14 +36,14 @@ const DARK = {
   _background,
   _bg_shadow: Color.lch(luminosity + 80, 0, 0),
   _bg_selection: Color.lch([luminosity + 60, 10, 60, 0.1]),
-  _subtle: Color.lch(luminosity + 35, 0, 0),
+  _subtle: Color.lch(luminosity + 30, 0, 0),
   _subtle_2: Color.lch([luminosity + 35, 25, 290]),
-  _neutral: Color.lch([luminosity + 45, 4, 20]),
-  _neutral_2: Color.lch([luminosity + 35, 6, 20]),
-  _accent_1: Color.lch([luminosity + 40, 25, 35]),
+  _neutral: Color.lch([luminosity + 45, 6, 20]),
+  _neutral_2: Color.lch([luminosity + 35, 10, 20]),
+  _accent_1: Color.lch([luminosity + 40, 35, 35]),
   _accent_1_alt: Color.lch([luminosity + 30, 40, 35]),
   _accent_1_alt_alt: Color.lch([luminosity + 30, 5, 205]),
-  _accent_2: Color.lch([luminosity + 42, 5, 205]),
+  _accent_2: Color.lch([luminosity + 42, 10, 205]),
 }
 
 // warm 3 (LCH)
