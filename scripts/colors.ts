@@ -27,15 +27,16 @@ type RawColor = [number, number, number] | [number, number, number, number] | nu
 //                               Dark base
 // ---------------------------------------------------------------------
 
-const luminosity = 5
-const _background = Color.lch([luminosity, 0, 0])
+const luminosity_bg = 5
+const luminosity = 20
+const _background = Color.lch([luminosity_bg, 0, 0])
 
 const DARK = {
   _luminosity: luminosity,
   _background,
-  _bg_shadow: lshift(_background, 80),
+  _bg_shadow: Color.lch(luminosity + 80, 0, 0),
   _bg_selection: Color.lch([luminosity + 60, 10, 60, 0.1]),
-  _subtle: lshift(_background, 35),
+  _subtle: Color.lch(luminosity + 35, 0, 0),
   _subtle_2: Color.lch([luminosity + 35, 25, 290]),
   _neutral: Color.lch([luminosity + 45, 4, 20]),
   _neutral_2: Color.lch([luminosity + 35, 6, 20]),
@@ -79,15 +80,15 @@ export const ColorTokens_lch = {
     LIGHT._accent_1.array(),
   ],
   foreground: [
-    lshift(_background, 45).array(),
+    Color.lch(luminosity + 45, 0, 0).array(),
     lshift(_background_light, -45).array(),
   ],
   activeForeground: [
-    lshift(_background, 50).array(),
+    Color.lch(luminosity + 50, 0, 0).array(),
     lshift(_background_light, -50).array(),
   ],
   secondaryForeground: [
-    lshift(_background, 30).array(),
+    Color.lch(luminosity + 30, 0, 0).array(),
     lshift(_background_light, -30).array(),
   ],
   ignored: [
@@ -99,7 +100,7 @@ export const ColorTokens_lch = {
     LIGHT._bg_shadow.alpha(0.15).array(),
   ],
   border: [
-    lshift(_background, 6).array(),
+    Color.lch(luminosity + 6, 0, 0).array(),
     lshift(_background_light, -6).array(),
   ],
   background: [
@@ -107,7 +108,7 @@ export const ColorTokens_lch = {
     LIGHT._background.array(),
   ],
   activeBackground: [
-    lshift(_background, 3).array(),
+    Color.lch(luminosity + 3, 0, 0).array(),
     lshift(_background_light, -3).array(),
   ],
   selectionBackground: [
@@ -124,9 +125,9 @@ export const ColorTokens_lch = {
   ],
 
   // soft overrides
-  softBackground:       [[luminosity + 5, 0, 0], [luminosity_light - 5, 4, 70]],
-  softActiveBackground: [[luminosity + 10, 0, 0], [luminosity_light - 10, 4, 70]],
-  softBorder:           [[luminosity + 10, 0, 0], [luminosity_light - 10, 4, 70]],
+  softBackground:       [[luminosity_bg + 5, 0, 0], [luminosity_light - 5, 4, 70]],
+  softActiveBackground: [[luminosity_bg + 10, 0, 0], [luminosity_light - 10, 4, 70]],
+  softBorder:           [[luminosity_bg + 10, 0, 0], [luminosity_light - 10, 4, 70]],
 
   // black overrides
   blackForeground: [65, 6.95, 97.29, 0.8],
@@ -137,8 +138,8 @@ export const ColorTokens_lch = {
   // semantic tokens
   // L +20 (lowest contrast)
   // comment: [lshift(DARK._background, 20).array(), lshift(LIGHT._background, -20).array()],
-  comment: [lshift(DARK._background, 20).array(), [luminosity_light - 20, 5, 70]],
-  punctuation: [lshift(DARK._background, 30).array(), lshift(LIGHT._background, -30 + 5).array()],
+  comment: [Color.lch(luminosity + 20, 0, 0).array(), [luminosity_light - 20, 5, 70]],
+  punctuation: [Color.lch(luminosity + 30, 0, 0).array(), lshift(LIGHT._background, -30 + 5).array()],
 
   class: [DARK._accent_1_alt_alt.array(), LIGHT._accent_1_alt_alt.array()],
   // class: [DARK._accent_2.array(), [45.95, 35.75, 287.04]],
