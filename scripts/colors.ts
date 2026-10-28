@@ -183,9 +183,9 @@ export const ColorTokens_lch = {
 //                           postprocess
 // -------------------------------------------------------------------
 
-function customRound(n: number) {
-  return Number.parseFloat(n.toFixed(2))
-}
+// function customRound(n: number) {
+//   return Number.parseFloat(n.toFixed(2))
+// }
 
 function toHex(arr: RawColor) {
   const str = arr[3] === undefined
@@ -195,7 +195,7 @@ function toHex(arr: RawColor) {
   return str.toLowerCase()
 }
 
-let k: keyof typeof ColorTokens_lch, values: [RawColor, RawColor]
+let k: keyof typeof ColorTokens_lch, values: RawColor | [RawColor, RawColor]
 
 export const ColorTokens: Record<string, string[] | string> = {}
 
@@ -203,13 +203,13 @@ for (k in ColorTokens_lch) {
   values = ColorTokens_lch[k]
 
   if (!Array.isArray(values[0])) {
-    ColorTokens[k] = toHex(values)
+    ColorTokens[k] = toHex(values as RawColor)
     continue
   }
 
   ColorTokens[k] = [
     toHex(values[0]),
-    toHex(values[1]),
+    toHex(values[1] as RawColor),
   ]
 
   // if (!Array.isArray(values)) {
