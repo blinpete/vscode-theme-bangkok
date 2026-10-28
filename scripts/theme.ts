@@ -396,7 +396,7 @@ export default function getTheme(options: GetThemeOptions) {
           'punctuation.definition.string',
         ],
         settings: {
-          foreground: v('string', '77'),
+          foreground: v('stringMuted'),
         },
       },
       {
@@ -404,7 +404,7 @@ export default function getTheme(options: GetThemeOptions) {
           'punctuation.support.type.property-name',
         ],
         settings: {
-          foreground: v('property', '77'),
+          foreground: v('propertyMuted'),
         },
       },
       {

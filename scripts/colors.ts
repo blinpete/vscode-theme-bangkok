@@ -73,7 +73,7 @@ const LIGHT = {
 }
 
 // [dark, light]
-export const ColorTokens_lch = {
+const ColorTokens_lch = {
   primary: [
     // [luminosity + 45, 15, 205],
     DARK._accent_1.array(),
@@ -161,6 +161,10 @@ export const ColorTokens_lch = {
   function: [DARK._accent_2.array(), LIGHT._accent_2.array()],
   variable: [DARK._neutral.array(), LIGHT._neutral.array()],
 
+  // muted
+  stringMuted: [DARK._accent_1.alpha(0.465).array(), LIGHT._accent_1.alpha(0.465).array()],
+  propertyMuted: [DARK._neutral_2.alpha(0.465).array(), LIGHT._neutral_2.alpha(0.465).array()],
+
   // L +50
   regex: [[luminosity + 50, 45, 45], [luminosity_light - 50, 45, 45]],
 
@@ -179,6 +183,7 @@ export const ColorTokens_lch = {
   magenta: [[55, 45.23, 352.95], [40.16, 47.6, 356.42]],
 } satisfies Record<string, [RawColor, RawColor] | RawColor>
 
+export type CustomColorToken = keyof typeof ColorTokens_lch
 // -------------------------------------------------------------------
 //                           postprocess
 // -------------------------------------------------------------------

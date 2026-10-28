@@ -1,3 +1,4 @@
+import type { CustomColorToken } from './colors'
 import { colors, ColorTokens } from './colors'
 
 export interface GetThemeOptions {
@@ -41,7 +42,7 @@ function capitalize(str: string) {
 export function createThemeHelpers({ color, soft = false, black = false }: GetThemeOptions) {
   const pick = (options: { light?: string, dark?: string }) => options[color]
 
-  const v = (key: keyof typeof ColorTokens, op = '') => {
+  const v = (key: CustomColorToken) => {
     let obj = black
       ? ColorTokens[`black${capitalize(key)}` as keyof typeof ColorTokens] || ColorTokens[key]
       : soft
@@ -51,7 +52,7 @@ export function createThemeHelpers({ color, soft = false, black = false }: GetTh
     if (typeof obj === 'string')
       obj = [obj, obj]
 
-    return pick({ light: obj[1] + op, dark: obj[0] + op })
+    return pick({ light: obj[1], dark: obj[0] })
   }
 
   const colors = getColors(color)
