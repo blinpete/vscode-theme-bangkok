@@ -2,7 +2,7 @@
   "publisher": "blinpete",
   "name": "theme-bangkok",
   "displayName": "Bangkok Theme",
-  "version": "0.2.1",
+  "version": "0.2.2-beta.1",
   "packageManager": "pnpm@10.15.0",
   "description": "Bangkok theme for VS Code",
   "license": "MIT",
@@ -74,7 +74,7 @@
     "prepublishOnly": "npm run build",
     "release": "bumpp --all",
     "package": "vsce package --no-dependencies",
-    "ci:publish": "ovsx publish --trusted-publishing"
+    "ci:publish": "ovsx publish --trusted-publishing --packagePath ./*.vsix"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^5.2.1",
