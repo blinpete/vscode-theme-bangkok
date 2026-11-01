@@ -84,7 +84,7 @@ function defineTheme(config: ThemeConfig): ThemeDefinition {
   const vars: TokensBase = {
     _bg_shadow:        [luminosity + 80 * coef, 0, 0],
     _bg_selection:     [luminosity + 60 * coef, 10, 60, 0.1],
-    _subtle:           [luminosity + 30 * coef, 0, 0],
+    _subtle:           [luminosity + 30 * coef, 5, 0],
     _subtle_2:         [luminosity + 35 * coef, 25, 290], // alt [luminosity + 35, 15, 220]
     _neutral:          [luminosity + 45 * coef, 6, 20],
     _neutral_2:        [luminosity + 35 * coef, 10, 20], // alt [luminosity + 50, 5, 75]
