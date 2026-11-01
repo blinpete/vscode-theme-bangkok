@@ -12,12 +12,17 @@ export const themeDefBlack = defineTheme({
   name: 'Bangkok Black', // Dark Night
   type: 'dark',
   luminosity_bg: 5,
-  luminosity: 25,
+  luminosity: 15,
+  shifts: {
+    _subtle:   [-2, 0, 0],
+    _accent_1: [0, -10, 0],
+    _accent_2: [0, -5, 0],
+  },
   overrides: {
-    foreground:       [65, 6.95, 97.29, 0.8],
+    foreground:       [60, 5, 100],
     background:       [0, 0, 0],
-    activeBackground: [7, 4, 270],
-    punctuation:      [25, 0, 0],
+    activeBackground: [10, 4, 300],
+    punctuation:      [30, 0, 0],
     // activeBg: (l, c, h) => [7, 4, 270],
   },
 })
