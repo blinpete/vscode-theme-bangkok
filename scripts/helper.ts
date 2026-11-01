@@ -1,11 +1,57 @@
-import type { CustomColorToken } from './colors'
-import { colors, ColorTokens } from './colors'
+import type { CustomColorToken, RawColor, ThemeDefinition, TokensHex, TokensLch } from './types'
+import Color from 'color'
+import { globalColors } from './colors'
 
-export interface GetThemeOptions {
-  color: 'light' | 'dark'
-  name: string
-  soft?: boolean
-  black?: boolean
+export function lshift(c: RawColor, shift: number) {
+  const copy = [...c]
+  copy[0] += shift
+  return copy
+}
+
+export function alpha(c: RawColor, value: number): RawColor {
+  const copy = [...c]
+  copy[3] = value
+  return copy
+}
+
+function toHex(arr: RawColor) {
+  const str = arr[3] === undefined
+    ? Color.lch(arr).hex()
+    : Color.lch(arr).hexa()
+
+  return str.toLowerCase()
+}
+
+export function tokensLchToHex(tokens: TokensLch) {
+  const tokensHex = {} as TokensHex
+
+  for (const [k, color] of Object.entries(tokens)) {
+    tokensHex[k as CustomColorToken] = toHex(color)
+  }
+
+  return tokensHex
+}
+
+export function applyShifts<T extends Record<string, number[]>>(colors: T, shifts: T) {
+  for (const k in colors) {
+    if (shifts[k]) {
+      for (let i = 0; i < shifts[k].length; i++) {
+        colors[k][i] += shifts[k][i]
+      }
+    }
+  }
+
+  return colors
+}
+
+export function applyOverrides<T extends Record<string, number[]>>(colors: T, overrides: T) {
+  for (const k in colors) {
+    if (overrides[k]) {
+      colors[k] = overrides[k]
+    }
+  }
+
+  return colors
 }
 
 function toArray<T>(arr: T | T[]): T[] {
@@ -14,11 +60,11 @@ function toArray<T>(arr: T | T[]): T[] {
   return [arr]
 }
 
-function getColors(style: 'light' | 'dark'): typeof colors {
+function getColors(style: 'light' | 'dark'): typeof globalColors {
   if (style === 'dark') {
     /* The array of light to dark colors are reversed to auto-generate dark theme */
     const darkColors: any = {}
-    Object.entries(colors).forEach(([name, val]) => {
+    Object.entries(globalColors).forEach(([name, val]) => {
       if (name === 'black')
         darkColors.white = val
 
@@ -31,29 +77,14 @@ function getColors(style: 'light' | 'dark'): typeof colors {
     return darkColors
   }
   else {
-    return colors
+    return globalColors
   }
 }
 
-function capitalize(str: string) {
-  return str.charAt(0).toUpperCase() + str.slice(1)
-}
-
-export function createThemeHelpers({ color, soft = false, black = false }: GetThemeOptions) {
+export function createThemeHelpers({ color, tokensHEX }: ThemeDefinition) {
   const pick = (options: { light?: string, dark?: string }) => options[color]
 
-  const v = (key: CustomColorToken) => {
-    let obj = black
-      ? ColorTokens[`black${capitalize(key)}` as keyof typeof ColorTokens] || ColorTokens[key]
-      : soft
-        ? ColorTokens[`soft${capitalize(key)}` as keyof typeof ColorTokens] || ColorTokens[key]
-        : ColorTokens[key]
-
-    if (typeof obj === 'string')
-      obj = [obj, obj]
-
-    return pick({ light: obj[1], dark: obj[0] })
-  }
+  const v = (key: CustomColorToken) => tokensHEX[key]
 
   const colors = getColors(color)
 

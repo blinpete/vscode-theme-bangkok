@@ -1,4 +1,5 @@
 import fs from 'fs-extra'
+import { themeDefBlack, themeDefDark, themeDefDarkSoft, themeDefLight, themeDefLightSoft } from './colors'
 import { getXtermTheme } from './extra'
 import getTheme from './theme'
 
@@ -8,45 +9,27 @@ fs.mkdir('./themes', { recursive: true })
   .then(() => Promise.all([
     fs.writeJSON(
       './themes/dark.json',
-      getTheme({
-        color: 'dark',
-        name: 'Bangkok Dark',
-      }),
+      getTheme(themeDefDark),
       { spaces: 2 },
     ),
     fs.writeJSON(
       './themes/black.json',
-      getTheme({
-        color: 'dark',
-        name: 'Bangkok Black',
-        black: true,
-      }),
+      getTheme(themeDefBlack),
       { spaces: 2 },
     ),
     fs.writeJSON(
       './themes/dark-soft.json',
-      getTheme({
-        color: 'dark',
-        name: 'Bangkok Dark Soft',
-        soft: true,
-      }),
+      getTheme(themeDefDarkSoft),
       { spaces: 2 },
     ),
     fs.writeJSON(
       './themes/light.json',
-      getTheme({
-        color: 'light',
-        name: 'Bangkok Light',
-      }),
+      getTheme(themeDefLight),
       { spaces: 2 },
     ),
     fs.writeJSON(
       './themes/light-soft.json',
-      getTheme({
-        color: 'light',
-        name: 'Bangkok Light Soft',
-        soft: true,
-      }),
+      getTheme(themeDefLightSoft),
       { spaces: 2 },
     ),
   ]))
@@ -55,27 +38,17 @@ fs.mkdir('./extra', { recursive: true })
   .then(() => Promise.all([
     fs.writeJSON(
       './extra/xterm-light.json',
-      getXtermTheme({
-        color: 'light',
-        name: 'Bangkok Light',
-      }),
+      getXtermTheme(themeDefLight),
       { spaces: 2 },
     ),
     fs.writeJSON(
       './extra/xterm-dark.json',
-      getXtermTheme({
-        color: 'dark',
-        name: 'Bangkok Dark',
-      }),
+      getXtermTheme(themeDefDark),
       { spaces: 2 },
     ),
     fs.writeJSON(
       './extra/xterm-black.json',
-      getXtermTheme({
-        color: 'dark',
-        name: 'Bangkok Black',
-        black: true,
-      }),
+      getXtermTheme(themeDefBlack),
       { spaces: 2 },
     ),
   ]))

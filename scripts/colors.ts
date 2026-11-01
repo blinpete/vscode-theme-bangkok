@@ -1,14 +1,203 @@
-import type { ColorInstance } from 'color'
-import Color from 'color'
+import type { ThemeConfig, ThemeDefinition, TokensBase, TokensLch } from './types'
+import { alpha, applyOverrides, applyShifts, lshift, tokensLchToHex } from './helper'
 
-function lshift(c: ColorInstance, shift: number) {
-  const arr = c.lch().array()
-  arr[0] += shift
+export const themeDefDark = defineTheme({
+  name: 'Bangkok Dark', // Dark Evening
+  type: 'dark',
+  luminosity_bg: 5,
+  luminosity: 25,
+})
 
-  return Color.lch(arr)
+export const themeDefBlack = defineTheme({
+  name: 'Bangkok Black', // Dark Night
+  type: 'dark',
+  luminosity_bg: 5,
+  luminosity: 25,
+  overrides: {
+    foreground:       [65, 6.95, 97.29, 0.8],
+    background:       [0, 0, 0],
+    activeBackground: [7, 4, 270],
+    punctuation:      [25, 0, 0],
+    // activeBg: (l, c, h) => [7, 4, 270],
+  },
+})
+
+export const themeDefDarkSoft = defineTheme({
+  name: 'Bangkok Dark Soft', // Dark Day
+  type: 'dark',
+  luminosity_bg: 5,
+  luminosity: 25,
+  overrides: {
+    background:       [5 + 5, 0, 0],
+    activeBackground: [5 + 10, 0, 0],
+    border:           [5 + 10, 0, 0],
+  },
+})
+
+export const themeDefLight = defineTheme({
+  name: 'Bangkok Light', // Light Day
+  type: 'light',
+  luminosity_bg: 100,
+  luminosity: 100,
+  shifts: {
+    _subtle:           [0, 5, 40],
+    _neutral:          [5, 4, 20],
+    _neutral_2:        [5, 2, 20],
+    _accent_1:         [5, -10, 0],
+    _accent_1_alt_alt: [0, 8, 120],
+    _accent_2:         [5, 3, 20],
+    comment:           [0, 5, 70],
+    punctuation:       [5, 0, 0],
+    constant:          [0, 20, 10],
+    namespace:         [0, 5, -5],
+  },
+  overrides: {
+    green:   [43.6, 37.63, 158.46], // [55, 30, 160], // LIGHT [43.6, 37.63, 158.46]],
+    cyan:    [56.07, 29.18, 215.53], // [55, 24, 210], // LIGHT [56.07, 29.18, 215.53]],
+    blue:    [43.39, 36.62, 269.15], // [55, 25, 260], // LIGHT [43.39, 36.62, 269.15]],
+    red:     [47.66, 36.74, 24.6], // [55, 36, 25], // LIGHT [47.66, 36.74, 24.6]],
+    orange:  [47.35, 47.9, 58.33], // [55, 36, 60], // LIGHT [47.35, 47.9, 58.33]],
+    yellow:  [67.76, 57.23, 92.82], // [55, 45, 90], // LIGHT [67.76, 57.23, 92.82]],
+    magenta: [40.16, 47.6, 356.42], // [55, 45, 350], // LIGHT [40.16, 47.6, 356.42]],
+  },
+})
+
+export const themeDefLightSoft = defineTheme({
+  name: 'Bangkok Light Soft', // Light Evening
+  type: 'light',
+  luminosity_bg: 100,
+  luminosity: 100,
+  extends: themeDefLight.tokensLCH,
+  overrides: {
+    background:       [100 - 5, 4, 70],
+    activeBackground: [100 - 10, 4, 70],
+    border:           [100 - 10, 4, 70],
+  },
+})
+
+function defineTheme(config: ThemeConfig): ThemeDefinition {
+  const coef = config.type === 'dark' ? 1 : -1
+
+  // -------------------------------------------------
+  const { luminosity_bg, luminosity } = config
+  const _background = [luminosity_bg, 0, 0]
+
+  const vars: TokensBase = {
+    _bg_shadow:        [luminosity + 80 * coef, 0, 0],
+    _bg_selection:     [luminosity + 60 * coef, 10, 60, 0.1],
+    _subtle:           [luminosity + 30 * coef, 0, 0],
+    _subtle_2:         [luminosity + 35 * coef, 25, 290], // alt [luminosity + 35, 15, 220]
+    _neutral:          [luminosity + 45 * coef, 6, 20],
+    _neutral_2:        [luminosity + 35 * coef, 10, 20], // alt [luminosity + 50, 5, 75]
+    _accent_1:         [luminosity + 40 * coef, 35, 35],
+    _accent_1_alt:     [luminosity + 30 * coef, 40, 35],
+    _accent_1_alt_alt: [luminosity + 30 * coef, 5, 205],
+    _accent_2:         [luminosity + 42 * coef, 10, 205],
+  }
+
+  // warm 3 (LCH)
+  // 1) 49.5 22 299
+  // 1) 45 20 325
+  // 3) 60 0 0 + bold
+
+  // mutate vars
+  if (config.shifts) {
+    applyShifts(vars, config.shifts)
+  }
+  if (config.overrides) {
+    applyOverrides(vars, config.overrides)
+  }
+  // -------------------------------------------------
+
+  let tokens: TokensLch
+
+  if (config.extends) {
+    tokens = { ...structuredClone(config.extends) }
+  }
+  else {
+    tokens = {
+      primary:             vars._accent_1,
+      foreground:          [luminosity + 45 * coef, 0, 0],
+      activeForeground:    [luminosity + 50 * coef, 0, 0],
+      secondaryForeground: [luminosity + 30 * coef, 0, 0],
+      ignored:             alpha(vars._bg_shadow, 0.25),
+      faded:               alpha(vars._bg_shadow, 0.15),
+      border:              [luminosity + 6 * coef, 0, 0],
+
+      background:                  _background,
+      activeBackground:            [luminosity + 3 * coef, 0, 0],
+      selectionBackground:         lshift(vars._bg_selection, 10 * coef),
+      selectionBackgroundActive:   lshift(vars._bg_selection, 20 * coef),
+      selectionBackgroundInActive: vars._bg_selection,
+
+      // soft overrides
+      // softBackground:       [[luminosity_bg + 5, 0, 0], [luminosity_light - 5, 4, 70]],
+      // softActiveBackground: [[luminosity_bg + 10, 0, 0], [luminosity_light - 10, 4, 70]],
+      // softBorder:           [[luminosity_bg + 10, 0, 0], [luminosity_light - 10, 4, 70]],
+
+      // semantic tokens
+      // L +20 (lowest contrast)
+      comment:     [luminosity + 20 * coef, 0, 0], // LIGHT [luminosity_light - 20, 5, 70]
+      punctuation: [luminosity + 30 * coef, 0, 0], // LIGHT [luminosity -30 + 5, 0, 0]
+
+      class: vars._accent_1_alt_alt,
+
+      // L +35 (low contrast)
+      keyword:   vars._subtle,
+      builtin:   vars._subtle,
+      operator:  vars._subtle,
+      interface: vars._subtle_2,
+      type:      vars._subtle_2,
+
+      // L +30 - +45
+      number:    lshift(vars._accent_1, -10 * coef),
+      boolean:   vars._accent_1_alt,
+      property:  vars._neutral_2,
+      string:    vars._accent_1,
+      function:  vars._accent_2,
+      variable:  vars._neutral,
+
+      // muted
+      stringMuted:   alpha(vars._accent_1, 0.465),
+      propertyMuted: alpha(vars._neutral_2, 0.465),
+
+      // L +50
+      regex: [luminosity + 50 * coef, 45, 45],
+
+      // L +55
+      constant: [luminosity + 55 * coef, 30, 50], // [luminosity_light - 55, 30+20, 50+10]],
+      namespace: [luminosity + 55 * coef, 35, 5], // [luminosity_light - 55, 35+5, 5]],
+      decorator: [luminosity + 55 * coef, 20, 20],
+
+      // colors
+      green:   [55, 30.86, 162.77], // [55, 30, 160], // LIGHT [43.6, 37.63, 158.46]],
+      cyan:    [55, 24.29, 212.24], // [55, 24, 210], // LIGHT [56.07, 29.18, 215.53]],
+      blue:    [55, 27.78, 260.53], // [55, 25, 260], // LIGHT [43.39, 36.62, 269.15]],
+      red:     [55, 36.26, 23.61], // [55, 36, 25], // LIGHT [47.66, 36.74, 24.6]],
+      orange:  [55, 36.4, 60.51], // [55, 36, 60], // LIGHT [47.35, 47.9, 58.33]],
+      yellow:  [55, 45.48, 92.3], // [55, 45, 90], // LIGHT [67.76, 57.23, 92.82]],
+      magenta: [55, 45.23, 352.95], // [55, 45, 350], // LIGHT [40.16, 47.6, 356.42]],
+    }
+  }
+
+  // postprocess
+  if (config.shifts) {
+    applyShifts(tokens, config.shifts)
+  }
+
+  if (config.overrides) {
+    applyOverrides(tokens, config.overrides)
+  }
+
+  return {
+    color: config.type,
+    name: config.name,
+    tokensLCH: tokens,
+    tokensHEX: tokensLchToHex(tokens),
+  }
 }
 
-export const colors = {
+export const globalColors = {
   black: '#111',
   white: '#fff',
   gray: ['#fafbfc', '#f6f8fa', '#e1e4e8', '#d1d5da', '#959da5', '#6a737d', '#586069', '#444d56', '#2f363d', '#24292e'],
@@ -20,209 +209,3 @@ export const colors = {
   purple: ['#f5f0ff', '#e6dcfd', '#d1bcf9', '#b392f0', '#8a63d2', '#6f42c1', '#5a32a3', '#4c2889', '#3a1d6e', '#29134e'],
   pink: ['#ffeef8', '#fedbf0', '#f9b3dd', '#f692ce', '#ec6cb9', '#ea4aaa', '#d03592', '#b93a86', '#99306f', '#6d224f'],
 }
-
-type RawColor = [number, number, number] | [number, number, number, number] | number[]
-
-// ---------------------------------------------------------------------
-//                               Dark base
-// ---------------------------------------------------------------------
-
-const luminosity_bg = 5
-const luminosity = 25
-const _background = Color.lch([luminosity_bg, 0, 0])
-
-const DARK = {
-  _luminosity: luminosity,
-  _background,
-  _bg_shadow: Color.lch(luminosity + 80, 0, 0),
-  _bg_selection: Color.lch([luminosity + 60, 10, 60, 0.1]),
-  _subtle: Color.lch(luminosity + 30, 0, 0),
-  _subtle_2: Color.lch([luminosity + 35, 25, 290]),
-  _neutral: Color.lch([luminosity + 45, 6, 20]),
-  _neutral_2: Color.lch([luminosity + 35, 10, 20]),
-  _accent_1: Color.lch([luminosity + 40, 35, 35]),
-  _accent_1_alt: Color.lch([luminosity + 30, 40, 35]),
-  _accent_1_alt_alt: Color.lch([luminosity + 30, 5, 205]),
-  _accent_2: Color.lch([luminosity + 42, 10, 205]),
-}
-
-// warm 3 (LCH)
-// 1) 49.5 22 299
-// 1) 45 20 325
-// 3) 60 0 0 + bold
-
-// ---------------------------------------------------------------------
-//                              Light base
-// ---------------------------------------------------------------------
-const luminosity_light = 100
-const _background_light = Color.lch([luminosity_light, 0, 0])
-
-const LIGHT = {
-  _luminosity: luminosity_light,
-  _background: _background_light,
-  _bg_shadow: lshift(_background_light, -80),
-  _bg_selection: Color.lch([luminosity_light - 60, 10, 60, 0.1]),
-  _subtle: Color.lch([luminosity_light - 35 + 5, 5, 40]),
-  _subtle_2:         Color.lch([luminosity_light - 35, 25, 290]),
-  _neutral:           Color.lch([luminosity_light - 45 + 5, 6 + 4, 40]),
-  _neutral_2:         Color.lch([luminosity_light - 35 + 5, 6 + 6, 40]),
-  _accent_1:         Color.lch([luminosity_light - 40 + 5, 25, 35]),
-  _accent_1_alt:     Color.lch([luminosity_light - 30, 40, 35]),
-  _accent_1_alt_alt:  Color.lch([luminosity_light - 30 + 0, 5 + 8, 325]),
-  _accent_2:          Color.lch([luminosity_light - 42 + 5, 5 + 8, 225]),
-}
-
-// [dark, light]
-const ColorTokens_lch = {
-  primary: [
-    // [luminosity + 45, 15, 205],
-    DARK._accent_1.array(),
-    LIGHT._accent_1.array(),
-  ],
-  foreground: [
-    Color.lch(luminosity + 45, 0, 0).array(),
-    lshift(_background_light, -45).array(),
-  ],
-  activeForeground: [
-    Color.lch(luminosity + 50, 0, 0).array(),
-    lshift(_background_light, -50).array(),
-  ],
-  secondaryForeground: [
-    Color.lch(luminosity + 30, 0, 0).array(),
-    lshift(_background_light, -30).array(),
-  ],
-  ignored: [
-    DARK._bg_shadow.alpha(0.25).array(),
-    LIGHT._bg_shadow.alpha(0.25).array(),
-  ],
-  faded: [
-    DARK._bg_shadow.alpha(0.15).array(),
-    LIGHT._bg_shadow.alpha(0.15).array(),
-  ],
-  border: [
-    Color.lch(luminosity + 6, 0, 0).array(),
-    lshift(_background_light, -6).array(),
-  ],
-  background: [
-    DARK._background.array(),
-    LIGHT._background.array(),
-  ],
-  activeBackground: [
-    Color.lch(luminosity + 3, 0, 0).array(),
-    lshift(_background_light, -3).array(),
-  ],
-  selectionBackground: [
-    lshift(DARK._bg_selection, 10).array(),
-    lshift(LIGHT._bg_selection, -10).array(),
-  ],
-  selectionBackgroundActive: [
-    lshift(DARK._bg_selection, 20).array(),
-    lshift(LIGHT._bg_selection, -20).array(),
-  ],
-  selectionBackgroundInActive: [
-    DARK._bg_selection.array(),
-    LIGHT._bg_selection.array(),
-  ],
-
-  // soft overrides
-  softBackground:       [[luminosity_bg + 5, 0, 0], [luminosity_light - 5, 4, 70]],
-  softActiveBackground: [[luminosity_bg + 10, 0, 0], [luminosity_light - 10, 4, 70]],
-  softBorder:           [[luminosity_bg + 10, 0, 0], [luminosity_light - 10, 4, 70]],
-
-  // black overrides
-  blackForeground: [65, 6.95, 97.29, 0.8],
-  blackBackground: [0, 0, 0],
-  blackActiveBackground: [7, 4, 270],
-  blackPunctuation: [25, 0, 0],
-
-  // semantic tokens
-  // L +20 (lowest contrast)
-  // comment: [lshift(DARK._background, 20).array(), lshift(LIGHT._background, -20).array()],
-  comment: [Color.lch(luminosity + 20, 0, 0).array(), [luminosity_light - 20, 5, 70]],
-  punctuation: [Color.lch(luminosity + 30, 0, 0).array(), lshift(LIGHT._background, -30 + 5).array()],
-
-  class: [DARK._accent_1_alt_alt.array(), LIGHT._accent_1_alt_alt.array()],
-  // class: [DARK._accent_2.array(), [45.95, 35.75, 287.04]],
-
-  // L +35 (low contrast)
-  keyword: [DARK._subtle.array(), LIGHT._subtle.array()],
-  builtin: [DARK._subtle.array(), LIGHT._subtle.array()],
-  operator: [DARK._subtle.array(), LIGHT._subtle.array()],
-  interface: [DARK._subtle_2.array(), LIGHT._subtle_2.array()],
-  // interface: [[luminosity + 35, 15, 220], [49.5, 24.82, 218.2]],
-  type: [DARK._subtle_2.array(), LIGHT._subtle_2.array()],
-
-  // L +30 - +45
-  number: [lshift(DARK._accent_1, -10).array(), lshift(LIGHT._accent_1, 10).array()],
-  boolean: [DARK._accent_1_alt.array(), LIGHT._accent_1_alt.array()],
-  property: [DARK._neutral_2.array(), LIGHT._neutral_2.array()],
-  // property: [[luminosity + 50, 5, 75], [55.42, 55.46, 93.05]],
-  string: [DARK._accent_1.array(), LIGHT._accent_1.array()],
-  function: [DARK._accent_2.array(), LIGHT._accent_2.array()],
-  variable: [DARK._neutral.array(), LIGHT._neutral.array()],
-
-  // muted
-  stringMuted: [DARK._accent_1.alpha(0.465).array(), LIGHT._accent_1.alpha(0.465).array()],
-  propertyMuted: [DARK._neutral_2.alpha(0.465).array(), LIGHT._neutral_2.alpha(0.465).array()],
-
-  // L +50
-  regex: [[luminosity + 50, 45, 45], [luminosity_light - 50, 45, 45]],
-
-  // L +55
-  constant: [[luminosity + 55, 30, 50], [luminosity_light - 55, 50, 60]],
-  namespace: [[luminosity + 55, 35, 5], [luminosity_light - 55, 40, 360]],
-  decorator: [[luminosity + 55, 20, 20], [luminosity_light - 55, 20, 20]],
-
-  // colors
-  green: [[55, 30.86, 162.77], [43.6, 37.63, 158.46]],
-  cyan: [[55, 24.29, 212.24], [56.07, 29.18, 215.53]],
-  blue: [[55, 27.78, 260.53], [43.39, 36.62, 269.15]],
-  red: [[55, 36.26, 23.61], [47.66, 36.74, 24.6]],
-  orange: [[55, 36.4, 60.51], [47.35, 47.9, 58.33]],
-  yellow: [[55, 45.48, 92.3], [67.76, 57.23, 92.82]],
-  magenta: [[55, 45.23, 352.95], [40.16, 47.6, 356.42]],
-} satisfies Record<string, [RawColor, RawColor] | RawColor>
-
-export type CustomColorToken = keyof typeof ColorTokens_lch
-// -------------------------------------------------------------------
-//                           postprocess
-// -------------------------------------------------------------------
-
-// function customRound(n: number) {
-//   return Number.parseFloat(n.toFixed(2))
-// }
-
-function toHex(arr: RawColor) {
-  const str = arr[3] === undefined
-    ? Color.lch(arr).hex()
-    : Color.lch(arr).hexa()
-
-  return str.toLowerCase()
-}
-
-let k: keyof typeof ColorTokens_lch, values: RawColor | [RawColor, RawColor]
-
-export const ColorTokens: Record<string, string[] | string> = {}
-
-for (k in ColorTokens_lch) {
-  values = ColorTokens_lch[k]
-
-  if (!Array.isArray(values[0])) {
-    ColorTokens[k] = toHex(values as RawColor)
-    continue
-  }
-
-  ColorTokens[k] = [
-    toHex(values[0]),
-    toHex(values[1] as RawColor),
-  ]
-
-  // if (!Array.isArray(values)) {
-  //   ColorTokens_lch[k] = Color(values).lch().array().map(customRound)
-  //   continue
-  // }
-  // values[0] = Color(values[0]).lch().array().map(customRound)
-  // values[1] = Color(values[1]).lch().array().map(customRound)
-}
-console.log(ColorTokens_lch)
-console.log(ColorTokens)

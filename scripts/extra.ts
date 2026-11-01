@@ -1,8 +1,8 @@
 import type { ITheme } from '@xterm/xterm'
-import type { GetThemeOptions } from './helper'
+import type { ThemeDefinition } from './types'
 import { createThemeHelpers } from './helper'
 
-export function getXtermTheme(options: GetThemeOptions): ITheme {
+export function getXtermTheme(options: ThemeDefinition): ITheme {
   const {
     pick,
     v,

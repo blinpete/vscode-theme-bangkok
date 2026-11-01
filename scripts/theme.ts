@@ -1,10 +1,9 @@
 import type { VsCodeTheme } from 'vscode-typed-theme-generator'
-import type { GetThemeOptions } from './helper'
+import type { ThemeDefinition } from './types'
 import { toArray } from '@antfu/utils'
-import { ColorTokens } from './colors'
 import { createThemeHelpers } from './helper'
 
-export default function getTheme(options: GetThemeOptions) {
+export default function getTheme(options: ThemeDefinition) {
   const {
     pick,
     v,
@@ -201,7 +200,7 @@ export default function getTheme(options: GetThemeOptions) {
       'terminal.ansiBrightRed': v('red'),
       'terminal.ansiBrightWhite': pick({ light: '#dddddd', dark: '#ffffff' }),
       'terminal.ansiBrightYellow': v('yellow'),
-      'terminal.ansiBlack': pick({ light: ColorTokens.background[0], dark: ColorTokens.foreground[1] }),
+      'terminal.ansiBlack': pick({ light: colors.black, dark: v('secondaryForeground') }),
       'terminal.ansiBlue': v('blue'),
       'terminal.ansiCyan': v('cyan'),
       'terminal.ansiGreen': v('green'),
