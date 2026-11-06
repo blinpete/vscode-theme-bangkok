@@ -11,17 +11,16 @@ export const themeDefDark = defineTheme({
 export const themeDefBlack = defineTheme({
   name: 'Bangkok Black', // Dark Night
   type: 'dark',
-  luminosity_bg: 5,
+  luminosity_bg: 0,
   luminosity: 15,
   shifts: {
     _subtle:   [-2, 0, 0],
     _accent_1: [0, -10, 0],
     _accent_2: [0, -5, 0],
+    activeBackground: [4, 0, 0],
   },
   overrides: {
     foreground:       [60, 5, 100],
-    background:       [0, 0, 0],
-    activeBackground: [10, 4, 300],
     punctuation:      [30, 0, 0],
     // activeBg: (l, c, h) => [7, 4, 270],
   },
@@ -30,11 +29,9 @@ export const themeDefBlack = defineTheme({
 export const themeDefDarkSoft = defineTheme({
   name: 'Bangkok Dark Soft', // Dark Day
   type: 'dark',
-  luminosity_bg: 5,
+  luminosity_bg: 10,
   luminosity: 25,
   overrides: {
-    background:       [5 + 5, 0, 0],
-    activeBackground: [5 + 10, 0, 0],
     border:           [5 + 10, 0, 0],
   },
 })
@@ -129,7 +126,7 @@ function defineTheme(config: ThemeConfig): ThemeDefinition {
       border:              [luminosity + 6 * coef, 0, 0],
 
       background:                  _background,
-      activeBackground:            [luminosity + 3 * coef, 0, 0],
+      activeBackground:            [luminosity_bg + 6 * coef, 4, 280],
       selectionBackground:         lshift(vars._bg_selection, 10 * coef),
       selectionBackgroundActive:   lshift(vars._bg_selection, 20 * coef),
       selectionBackgroundInActive: vars._bg_selection,
