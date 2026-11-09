@@ -74,7 +74,8 @@
     "prepublishOnly": "npm run build",
     "release": "bumpp --all",
     "package": "vsce package --no-dependencies",
-    "ci:publish": "ovsx publish --trusted-publishing --packagePath ./*.vsix"
+    "ci:publish-vsce": "vsce publish --oidc --no-dependencies --packagePath ./*.vsix",
+    "ci:publish-ovsx": "ovsx publish --trusted-publishing --no-dependencies --packagePath ./*.vsix"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^5.2.1",
@@ -82,7 +83,7 @@
     "@types/color": "^4.2.0",
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^24.3.0",
-    "@vscode/vsce": "^3.6.0",
+    "@vscode/vsce": "^4.1.0",
     "@xterm/xterm": "^5.5.0",
     "bumpp": "^10.2.3",
     "color": "^5.0.0",

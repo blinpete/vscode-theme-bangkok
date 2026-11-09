@@ -38,12 +38,15 @@ jobs:
       - name: Generate .vsix file
         run: pnpm package
 
-      - name: Publish Extension
+      - name: Publish to GitHub Releases
         run: npx vsxpub --no-dependencies --include git
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # VSCE_PAT: ${{secrets.VSCE_PAT}}
           # OVSX_PAT: ${{secrets.OVSX_PAT}}
 
-      - name: Publish to open-vsx
-        run: npx ovsx publish --trusted-publishing
+      - name: Publish to Open VSX Registry
+        run: pnpm ci:publish-ovsx
+
+      - name: Publish to VS Code Marketplace
+        run: pnpm ci:publish-vsce
