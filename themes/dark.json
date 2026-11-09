@@ -196,7 +196,7 @@
   },
   "semanticHighlighting": true,
   "semanticTokenColors": {
-    "namespace": "#ffaec2",
+    "namespace": "#cb788d",
     "property": "#a48b8b",
     "interface": "#8a8eba",
     "type": "#8a8eba",
@@ -248,7 +248,7 @@
         "meta.definition.variable"
       ],
       "settings": {
-        "foreground": "#f7b89d"
+        "foreground": "#798687"
       }
     },
     {
@@ -389,7 +389,7 @@
     {
       "scope": "namespace",
       "settings": {
-        "foreground": "#ffaec2"
+        "foreground": "#cb788d"
       }
     },
     {
@@ -482,7 +482,7 @@
         "support.constant"
       ],
       "settings": {
-        "foreground": "#f7b89d"
+        "foreground": "#798687"
       }
     },
     {
@@ -789,19 +789,19 @@
     },
     {
       "token": "constant",
-      "foreground": "f7b89d"
+      "foreground": "798687"
     },
     {
       "token": "entity.name.constant",
-      "foreground": "f7b89d"
+      "foreground": "798687"
     },
     {
       "token": "variable.language",
-      "foreground": "f7b89d"
+      "foreground": "798687"
     },
     {
       "token": "meta.definition.variable",
-      "foreground": "f7b89d"
+      "foreground": "798687"
     },
     {
       "token": "entity",
@@ -949,7 +949,7 @@
     },
     {
       "token": "namespace",
-      "foreground": "ffaec2"
+      "foreground": "cb788d"
     },
     {
       "token": "keyword.operator",
@@ -1021,7 +1021,7 @@
     },
     {
       "token": "support.constant",
-      "foreground": "f7b89d"
+      "foreground": "798687"
     },
     {
       "token": "keyword.operator.quantifier.regexp",

@@ -194,11 +194,11 @@
   },
   "semanticHighlighting": true,
   "semanticTokenColors": {
-    "namespace": "#a64d6c",
+    "namespace": "#e0819f",
     "property": "#c1a59e",
     "interface": "#979bc8",
     "type": "#979bc8",
-    "class": "#b9a5b9"
+    "class": "#d598c5"
   },
   "tokenColors": [
     {
@@ -246,7 +246,7 @@
         "meta.definition.variable"
       ],
       "settings": {
-        "foreground": "#9f5820"
+        "foreground": "#d598c5"
       }
     },
     {
@@ -387,7 +387,7 @@
     {
       "scope": "namespace",
       "settings": {
-        "foreground": "#a64d6c"
+        "foreground": "#e0819f"
       }
     },
     {
@@ -480,7 +480,7 @@
         "support.constant"
       ],
       "settings": {
-        "foreground": "#9f5820"
+        "foreground": "#d598c5"
       }
     },
     {
@@ -672,7 +672,7 @@
         "constant.other.character-class.regexp"
       ],
       "settings": {
-        "foreground": "#b9a5b9"
+        "foreground": "#d598c5"
       }
     },
     {
@@ -787,19 +787,19 @@
     },
     {
       "token": "constant",
-      "foreground": "9f5820"
+      "foreground": "d598c5"
     },
     {
       "token": "entity.name.constant",
-      "foreground": "9f5820"
+      "foreground": "d598c5"
     },
     {
       "token": "variable.language",
-      "foreground": "9f5820"
+      "foreground": "d598c5"
     },
     {
       "token": "meta.definition.variable",
-      "foreground": "9f5820"
+      "foreground": "d598c5"
     },
     {
       "token": "entity",
@@ -947,7 +947,7 @@
     },
     {
       "token": "namespace",
-      "foreground": "a64d6c"
+      "foreground": "e0819f"
     },
     {
       "token": "keyword.operator",
@@ -1019,7 +1019,7 @@
     },
     {
       "token": "support.constant",
-      "foreground": "9f5820"
+      "foreground": "d598c5"
     },
     {
       "token": "keyword.operator.quantifier.regexp",
@@ -1187,11 +1187,11 @@
     },
     {
       "token": "type.identifier",
-      "foreground": "b9a5b9"
+      "foreground": "d598c5"
     },
     {
       "token": "constant.other.character-class.regexp",
-      "foreground": "b9a5b9"
+      "foreground": "d598c5"
     },
     {
       "token": "entity.other.attribute-name.html.vue",

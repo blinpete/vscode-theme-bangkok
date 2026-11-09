@@ -131,15 +131,10 @@ function defineTheme(config: ThemeConfig): ThemeDefinition {
       selectionBackgroundActive:   lshift(vars._bg_selection, 20 * coef),
       selectionBackgroundInActive: vars._bg_selection,
 
-      // soft overrides
-      // softBackground:       [[luminosity_bg + 5, 0, 0], [luminosity_light - 5, 4, 70]],
-      // softActiveBackground: [[luminosity_bg + 10, 0, 0], [luminosity_light - 10, 4, 70]],
-      // softBorder:           [[luminosity_bg + 10, 0, 0], [luminosity_light - 10, 4, 70]],
-
       // semantic tokens
       // L +20 (lowest contrast)
-      comment:     [luminosity + 20 * coef, 0, 0], // LIGHT [luminosity_light - 20, 5, 70]
-      punctuation: [luminosity + 30 * coef, 0, 0], // LIGHT [luminosity -30 + 5, 0, 0]
+      comment:     [luminosity + 20 * coef, 0, 0],
+      punctuation: [luminosity + 30 * coef, 0, 0],
 
       class: vars._accent_1_alt_alt,
 
@@ -166,9 +161,9 @@ function defineTheme(config: ThemeConfig): ThemeDefinition {
       regex: [luminosity + 50 * coef, 45, 45],
 
       // L +55
-      constant: [luminosity + 55 * coef, 30, 50], // [luminosity_light - 55, 30+20, 50+10]],
-      namespace: [luminosity + 55 * coef, 35, 5], // [luminosity_light - 55, 35+5, 5]],
-      decorator: [luminosity + 55 * coef, 20, 20],
+      constant: vars._accent_1_alt_alt, // [luminosity_light - 55, 30+20, 50+10]],
+      namespace: [luminosity + 35 * coef, 35, 5], // [luminosity_light - 55, 35+5, 5]],
+      decorator: vars._accent_1_alt,
 
       // colors
       green:   [55, 30, 160],
